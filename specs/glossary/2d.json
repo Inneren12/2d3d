@@ -1,1 +1,34 @@
-{}
+{
+  "schema_version": 1,
+  "namespace": "2d",
+  "inherits": ["global"],
+  "terms": {
+    "Node": {
+      "definition": "2D point with coordinates (x: Double, y: Double) in millimeters",
+      "type": "data class Node2D",
+      "domain": "drawing",
+      "conflicts_with": ["ar.Node"],
+      "note": "DO NOT confuse with AR scene node or graph vertex"
+    },
+    "Member": {
+      "definition": "Line between two nodes with profile reference",
+      "type": "data class Member2D",
+      "domain": "drawing",
+      "properties": {
+        "startNodeId": "String - ID of start Node2D",
+        "endNodeId": "String - ID of end Node2D",
+        "profileRef": "String? - Optional profile reference"
+      }
+    },
+    "Drawing": {
+      "definition": "2D blueprint with collection of nodes and entities",
+      "type": "data class Drawing2D",
+      "contains": ["nodes", "members", "annotations"]
+    },
+    "Scale": {
+      "definition": "Mapping between pixel space and physical millimeters",
+      "type": "data class ScaleInfo",
+      "formula": "mmPerPx = realLengthMm / distancePx"
+    }
+  }
+}

@@ -1,1 +1,31 @@
-{}
+{
+  "schema_version": 1,
+  "namespace": "ar",
+  "inherits": ["global"],
+  "terms": {
+    "Node": {
+      "definition": "Filament Renderable scene node with 3D transformation",
+      "type": "Entity (Filament)",
+      "domain": "ar",
+      "conflicts_with": ["2d.Node"],
+      "note": "This is a scene graph node, NOT a 2D drawing point"
+    },
+    "Engine": {
+      "definition": "Filament Engine singleton, lives in ViewModel scope",
+      "lifecycle": "ViewModel scope, NOT Surface",
+      "domain": "ar",
+      "warning": "NEVER destroy in surfaceDestroyed - use destroySwapChain only"
+    },
+    "SwapChain": {
+      "definition": "Rendering surface for Filament, tied to Android Surface lifecycle",
+      "lifecycle": "Created in surfaceCreated, destroyed in surfaceDestroyed",
+      "domain": "ar"
+    },
+    "Anchor": {
+      "definition": "ARCore tracking anchor in physical space",
+      "type": "com.google.ar.core.Anchor",
+      "domain": "ar",
+      "note": "Represents a pose in real world that ARCore tracks"
+    }
+  }
+}
