@@ -20,7 +20,7 @@
     "core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/math/MathUtils.kt",
     "core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/MathUtilsTest.kt"
   ],
-  "expected_hash": "5d452e8b558e9cc0abdf90d4b642f4fd03bb5de716d5e278f85ef67810105805",
+  "expected_hash": "b1b6afb4b0af1fcc8fe15982d7cc52feebf32ef522e4816278d531e02cca7c80",
   "status": "ready",
   "assignee": null
 }
