@@ -1,0 +1,26 @@
+{
+  "id": "task-PR1.5",
+  "title": "MathUtils with deterministic rounding",
+  "sprint": "sprint-1",
+  "depends_on": ["task-PR1"],
+  "branch": "feature/s1-pr1.5-math-utils",
+  "arch_scopes": ["domain_core"],
+  "glossary_scopes": ["global", "2d"],
+  "ac_id": "S1-PR1.5-AC1",
+  "touches": {
+    "include": [
+      "core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/math/**/*.kt",
+      "core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/**/*.kt"
+    ],
+    "exclude": [
+      "**/*Integration*.kt"
+    ]
+  },
+  "estimated_files": [
+    "core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/math/MathUtils.kt",
+    "core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/MathUtilsTest.kt"
+  ],
+  "expected_hash": "5d452e8b558e9cc0abdf90d4b642f4fd03bb5de716d5e278f85ef67810105805",
+  "status": "ready",
+  "assignee": null
+}
