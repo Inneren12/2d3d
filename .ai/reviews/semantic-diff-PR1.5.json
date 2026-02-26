@@ -1,0 +1,29 @@
+{
+  "semantic_diff_analysis": {
+    "pr_id": "PR1.5",
+    "api_changes": [
+      {
+        "type": "SIGNATURE_CHANGE",
+        "function": "MathUtils.round",
+        "before": "fun round(value: Float, decimals: Int): Float",
+        "after": "fun round(value: Double, decimals: Int): Double",
+        "breaking": true,
+        "impact_level": "HIGH"
+      }
+    ],
+    "cross_module_calls": {
+      "total_call_sites": 0,
+      "affected_modules": [],
+      "call_sites": []
+    },
+    "risk_assessment": {
+      "level": "LOW",
+      "reason": "Signature changed to Double (ARCH-MATH-001 compliance), but grep confirmed zero cross-module call sites exist outside MathUtils.kt and test files.",
+      "mitigation": "None required at this time."
+    },
+    "recommendation": {
+      "status": "APPROVED",
+      "actions": []
+    }
+  }
+}
