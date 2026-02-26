@@ -7,7 +7,7 @@
       "title": "Mathematical determinism",
       "constraint": "Use Double for internal math only. Float is forbidden until rendering.",
       "rationale": "Prevents Integer Overflow when rounding coordinates >250m and guarantees byte-to-byte matching on x86/ARM.",
-      "applies_to": ["core-drawing2d/**/*.kt"],
+      "applies_to": ["core/drawing2d/**/*.kt"],
       "violations": [
         "val coordinate: Float = ",
         "fun calculate(value: Float)",
