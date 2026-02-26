@@ -1,1 +1,122 @@
-{}
+{
+  "schema_version": 1,
+  "domain": "core",
+  "rules": [
+    {
+      "rule_id": "ARCH-MATH-001",
+      "title": "Mathematical determinism",
+      "constraint": "Use Double for internal math only. Float is forbidden until rendering.",
+      "rationale": "Prevents Integer Overflow when rounding coordinates >250m and guarantees byte-to-byte matching on x86/ARM.",
+      "applies_to": ["core-drawing2d/**/*.kt"],
+      "violations": [
+        "val coordinate: Float = ",
+        "fun calculate(value: Float)",
+        "data class Point2D(val x: Float"
+      ],
+      "exceptions": [
+        "**/rendering/**",
+        "**/canvas/**",
+        "**/*Renderer.kt"
+      ]
+    },
+    {
+      "rule_id": "ARCH-PERF-001",
+      "title": "O(N) algorithmic complexity for merge",
+      "constraint": "When merging lists, convert to Map before loops",
+      "rationale": "Prevents O(N\u00b2) in Three-way merge (10,000 nodes \u00d7 30,000 operations = ANR)",
+      "applies_to": ["**/merge/**/*.kt", "**/sync/**/*.kt"],
+      "code_pattern": {
+        "required": "val baseMap = base.nodes.associateBy { it.id }",
+        "forbidden": "base.nodes.find { it.id == nodeId }"
+      }
+    },
+    {
+      "rule_id": "ARCH-SAFE-001",
+      "title": "Safe rounding implementation",
+      "constraint": "round() must accept Double and use toLong(), not roundToInt()",
+      "rationale": "Protection from Integer Overflow for values >2.1 billion",
+      "applies_to": ["**/math/MathUtils.kt"],
+      "code_pattern": {
+        "required": "(value * factor).toLong().toDouble() / factor",
+        "forbidden": "(value * factor).roundToInt()"
+      }
+    },
+    {
+      "rule_id": "ARCH-JNI-002",
+      "title": "JNI Local Reference Table limit",
+      "constraint": "Cache jclass/jmethodID before loops, or use ByteBuffer for flags",
+      "rationale": "Local Reference Table limited to 512 entries. Allocations in loop cause JNI ERROR",
+      "applies_to": ["**/jni/**/*.cpp", "**/native/**/*.cpp"],
+      "code_pattern": {
+        "forbidden": "env->GetObjectClass() inside while loop",
+        "required": "Cache jclass before loop OR use GetDirectBufferAddress()"
+      }
+    },
+    {
+      "rule_id": "ARCH-ROOM-003",
+      "title": "SQLite CursorWindow 2MB limit",
+      "constraint": "For heavy drawings use File-Backed Room (JSON in file, path in DB)",
+      "rationale": "Workaround for 2MB data transfer limit from SQLite to memory",
+      "applies_to": ["**/room/**/*.kt", "**/dao/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "val drawingJson: String in @Entity (for large data)",
+        "required": "val draftFilePath: String in @Entity"
+      }
+    },
+    {
+      "rule_id": "ARCH-STATE-004",
+      "title": "SSOT State Management",
+      "constraint": "State not stored in memory during drag-and-drop. Room is SSOT. MVI writes patches to DB.",
+      "rationale": "Protection from silent data loss during background sync and Process Death",
+      "applies_to": ["**/viewmodel/**/*.kt", "**/state/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "private val _state = MutableStateFlow",
+        "required": "val state: StateFlow = repository.observeDrawing()"
+      }
+    },
+    {
+      "rule_id": "ARCH-AR-005",
+      "title": "Filament Engine lifecycle",
+      "constraint": "Engine decoupled from Surface (lives in singleton), SwapChain destroyed in surfaceDestroyed",
+      "rationale": "Prevention of native crashes (SIGSEGV) in EGL context during config changes",
+      "applies_to": ["**/ar/**/*.kt", "**/filament/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "engine?.destroy() in surfaceDestroyed",
+        "required": "engine.destroySwapChain() in surfaceDestroyed, engine.destroy() in onCleared()"
+      }
+    },
+    {
+      "rule_id": "ARCH-SYNC-006",
+      "title": "Network determinism",
+      "constraint": "Conflict resolution by Vector Clock (version field), not by time. Double-Checked Locking for tokens.",
+      "rationale": "Protection from Token Refresh Stampede and client clock desync",
+      "applies_to": ["**/sync/**/*.kt", "**/api/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "if (local.updatedAt > remote.updatedAt)",
+        "required": "if (local.version > remote.version)"
+      }
+    },
+    {
+      "rule_id": "ARCH-PERF-002",
+      "title": "BitmapRegionDecoder singleton for batch",
+      "constraint": "Initialize BitmapRegionDecoder once per OCR batch, not per region",
+      "rationale": "Protection from disk I/O thrashing (100 decoder instances)",
+      "applies_to": ["**/ocr/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "BitmapRegionDecoder.newInstance() inside map loop",
+        "required": "val decoder = BitmapRegionDecoder.newInstance() before loop"
+      }
+    },
+    {
+      "rule_id": "ARCH-PERF-003",
+      "title": "QuadTree operations threading",
+      "constraint": "Spatial index rebuild operations (on drag end) execute strictly in Dispatchers.Default with atomic reference swap",
+      "rationale": "Protection from UI freezes during tree rebuild",
+      "applies_to": ["**/spatial/**/*.kt", "**/quadtree/**/*.kt"],
+      "code_pattern": {
+        "forbidden": "quadTree.insert() in Main thread during ACTION_UP",
+        "required": "withContext(Dispatchers.Default) { newTree = quadTree.rebuild() }; atomicRef.set(newTree)"
+      }
+    }
+  ]
+}
