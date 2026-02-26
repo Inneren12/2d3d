@@ -1,0 +1,5 @@
+Architecture First: Always validate planned changes against /specs/arch/global_dod.json and relevant domain specs before modifying /core/.
+Strict Naming (Glossary): Use strictly the terminology defined in /specs/glossary/. Do not invent synonyms.
+Dependency Management: Never hardcode library versions. All dependencies must be referenced from gradle/libs.versions.toml.
+AI Constraints: Respect locks in /.ai/active_locks/. Use scripts in /.ai/tools/ for scope resolution.
+Code Output: Output complete, valid code blocks. Never omit logic using comments like '// ...'.
