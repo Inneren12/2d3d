@@ -1,5 +1,6 @@
 package com.yourapp.drawing2d.math
 
+import com.yourapp.domain.Precision
 import kotlin.math.abs
 
 object MathUtils {
@@ -10,7 +11,7 @@ object MathUtils {
      *
      * @throws IllegalArgumentException if decimals not in 0..10 or abs(value) >= 1e9
      */
-    fun round(value: Double, decimals: Int = 4): Double {
+    fun round(value: Double, decimals: Int = Precision.DEFAULT_DECIMALS): Double {
         require(decimals in 0..10) {
             "decimals must be in range 0..10, was $decimals"
         }
@@ -25,7 +26,7 @@ object MathUtils {
     /**
      * Like [round] but never throws. Returns the original [value] unchanged when guards fail.
      */
-    fun roundSafe(value: Double, decimals: Int = 4): Double {
+    fun roundSafe(value: Double, decimals: Int = Precision.DEFAULT_DECIMALS): Double {
         return try {
             round(value, decimals)
         } catch (_: IllegalArgumentException) {
