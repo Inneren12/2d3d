@@ -1,0 +1,30 @@
+{
+  "id": "task-S2-PR5",
+  "title": "Result Preview Screen",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR4"
+  ],
+  "branch": "feature/s2-pr5-result-preview",
+  "arch_scopes": [
+    "android_module"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android"
+  ],
+  "ac_id": "S2-PR5-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/CaptureResultFragment.kt",
+      "feature/drawing-import/src/test/kotlin/**/CaptureResultFragmentTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../CaptureResultFragment.kt"
+  ],
+  "expected_hash": "f563d12fab14a11047c986b81d03d124efd8255451ac82753f4090f47479fb56",
+  "status": "ready",
+  "assignee": null
+}

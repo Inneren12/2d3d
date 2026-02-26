@@ -1,0 +1,33 @@
+{
+  "id": "task-S2-PR22",
+  "title": "Quality Decision Aggregator",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR19",
+    "task-S2-PR20",
+    "task-S2-PR21"
+  ],
+  "branch": "feature/s2-pr22-quality-gate",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR22-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/QualityAggregator.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/QualityAggregatorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/QualityAggregator.kt"
+  ],
+  "expected_hash": "a2739a4f0e9aafb7cc02dbefdcb938cc98bd747d4849044a8b7fb044066469cc",
+  "status": "ready",
+  "assignee": null
+}

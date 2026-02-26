@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR24",
+  "title": "Atomic Write + Rollback",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR22",
+    "task-S2-PR23"
+  ],
+  "branch": "feature/s2-pr24-atomic-save",
+  "arch_scopes": [
+    "android_module",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "storage"
+  ],
+  "ac_id": "S2-PR24-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/storage/ArtifactSaver.kt",
+      "feature/drawing-import/src/test/kotlin/**/storage/ArtifactSaverTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../storage/ArtifactSaver.kt"
+  ],
+  "expected_hash": "38deb54cf0dbde22725fa76ab3691a3342b36f1c92a26641b1facc668c25a872",
+  "status": "ready",
+  "assignee": null
+}

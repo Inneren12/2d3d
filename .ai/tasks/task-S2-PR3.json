@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR3",
+  "title": "CameraX Preview UI",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR2"
+  ],
+  "branch": "feature/s2-pr3-camera-preview",
+  "arch_scopes": [
+    "android_module",
+    "camerax"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android"
+  ],
+  "ac_id": "S2-PR3-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/CameraPreviewFragment.kt",
+      "feature/drawing-import/src/test/kotlin/**/CameraPreviewFragmentTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../CameraPreviewFragment.kt"
+  ],
+  "expected_hash": "536a7052447ad8492e64e2ae4bd6188f77e5e58511b1d7c030795f85f7b6d72e",
+  "status": "ready",
+  "assignee": null
+}

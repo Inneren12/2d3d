@@ -1,0 +1,33 @@
+{
+  "id": "task-S2-PR15",
+  "title": "Dynamic Destination Size (Aspect Ratio Preservation)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR10"
+  ],
+  "branch": "feature/s2-pr15-dest-size",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "math"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv",
+    "math"
+  ],
+  "ac_id": "S2-PR15-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/DestinationSizeCalculator.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/DestinationSizeCalculatorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/DestinationSizeCalculator.kt"
+  ],
+  "expected_hash": "779dd0e9c7f6283737aad27d0d1c314de03df51eb2317408bd726a6b644afe8e",
+  "status": "ready",
+  "assignee": null
+}

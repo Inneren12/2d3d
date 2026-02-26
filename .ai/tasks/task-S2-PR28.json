@@ -1,0 +1,30 @@
+{
+  "id": "task-S2-PR28",
+  "title": "UI Smoke Tests (Espresso)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR5",
+    "task-S2-PR22"
+  ],
+  "branch": "feature/s2-pr28-ui-tests",
+  "arch_scopes": [
+    "android_module",
+    "testing"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android",
+    "testing"
+  ],
+  "ac_id": "S2-PR28-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/androidTest/kotlin/**/*.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [],
+  "expected_hash": "fdb27d1f03a1d1091a179adfcb5400de20d4461f8f52a3288ee66ba3fa304850",
+  "status": "ready",
+  "assignee": null
+}

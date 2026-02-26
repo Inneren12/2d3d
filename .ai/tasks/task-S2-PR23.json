@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR23",
+  "title": "capture_meta.json Writer",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR22"
+  ],
+  "branch": "feature/s2-pr23-capture-metadata",
+  "arch_scopes": [
+    "android_module",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "storage"
+  ],
+  "ac_id": "S2-PR23-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/model/CaptureMetadata.kt",
+      "feature/drawing-import/src/test/kotlin/**/model/CaptureMetadataTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../model/CaptureMetadata.kt"
+  ],
+  "expected_hash": "7dccb10b5e469998ab72537b3165bafa48f38c6807370be49bb4d842eb1e828d",
+  "status": "ready",
+  "assignee": null
+}

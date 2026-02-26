@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR19",
+  "title": "Blur Detection (Laplacian Variance on Content Region)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR17"
+  ],
+  "branch": "feature/s2-pr19-blur-detection",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR19-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/BlurDetector.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/BlurDetectorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/BlurDetector.kt"
+  ],
+  "expected_hash": "98e2c57f8135033815f4f445e3fb9c6868f82df4099dc31735186666022e4f78",
+  "status": "ready",
+  "assignee": null
+}

@@ -1,0 +1,37 @@
+{
+  "id": "task-S2-PR27",
+  "title": "CV Pipeline Unit Tests",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR8",
+    "task-S2-PR9",
+    "task-S2-PR10",
+    "task-S2-PR11",
+    "task-S2-PR14",
+    "task-S2-PR15",
+    "task-S2-PR16",
+    "task-S2-PR17"
+  ],
+  "branch": "feature/s2-pr27-unit-tests",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "testing"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv",
+    "testing"
+  ],
+  "ac_id": "S2-PR27-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/test/kotlin/**/cv/**/*.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [],
+  "expected_hash": "34e3f3a8b7b3f15ae70a009230a6fc40a1eedd45de2a1cb80034fc129181b82d",
+  "status": "ready",
+  "assignee": null
+}

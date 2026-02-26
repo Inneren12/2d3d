@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR18",
+  "title": "Performance Guardrails",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR17"
+  ],
+  "branch": "feature/s2-pr18-performance",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR18-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/PageDetectionPipeline.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/PerformanceTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/PageDetectionPipeline.kt"
+  ],
+  "expected_hash": "5c27f2ec5baa2c5c066320a476bb190ed4183e3ec062c93a26b0ce1ad2f21103",
+  "status": "ready",
+  "assignee": null
+}

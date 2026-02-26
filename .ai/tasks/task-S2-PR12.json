@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR12",
+  "title": "Debug Visualization (corners.png)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR10"
+  ],
+  "branch": "feature/s2-pr12-debug-viz",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR12-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/DebugRenderer.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/DebugRendererTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/DebugRenderer.kt"
+  ],
+  "expected_hash": "695a889e56f200b2a3156eb37671d51de43b0a80a6bf61adb6b874da8209d975",
+  "status": "ready",
+  "assignee": null
+}

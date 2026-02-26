@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR11",
+  "title": "Sub-pixel Refinement",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR10"
+  ],
+  "branch": "feature/s2-pr11-subpixel-refinement",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR11-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/CornerRefinement.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/CornerRefinementTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/CornerRefinement.kt"
+  ],
+  "expected_hash": "174dac60f387da6e0bc59ce1bb975ebc87e26a173f1cca06bf7c66c9e56c5dc5",
+  "status": "ready",
+  "assignee": null
+}

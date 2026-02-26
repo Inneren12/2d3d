@@ -1,0 +1,33 @@
+{
+  "id": "task-S2-PR4",
+  "title": "Save Raw Image to Storage",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR3"
+  ],
+  "branch": "feature/s2-pr4-capture-save",
+  "arch_scopes": [
+    "android_module",
+    "camerax",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android",
+    "storage"
+  ],
+  "ac_id": "S2-PR4-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/CaptureViewModel.kt",
+      "feature/drawing-import/src/test/kotlin/**/CaptureViewModelTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../CaptureViewModel.kt"
+  ],
+  "expected_hash": "f55e5ef09a1bf5bd91a9453bd901de854dcfa89c88aa37fc62f2fd20d353acff",
+  "status": "ready",
+  "assignee": null
+}

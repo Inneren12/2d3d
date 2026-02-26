@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR2",
+  "title": "Runtime Permissions + Lifecycle",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR1"
+  ],
+  "branch": "feature/s2-pr2-camera-permissions",
+  "arch_scopes": [
+    "android_module",
+    "permissions"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android"
+  ],
+  "ac_id": "S2-PR2-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/CameraPermissionManager.kt",
+      "feature/drawing-import/src/test/kotlin/**/CameraPermissionManagerTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../CameraPermissionManager.kt"
+  ],
+  "expected_hash": "757301d144371f9a25cb9a1f2ef83947789fd1df8f29f7a3291927c538fc25a6",
+  "status": "ready",
+  "assignee": null
+}

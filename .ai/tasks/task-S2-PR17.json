@@ -1,0 +1,42 @@
+{
+  "id": "task-S2-PR17",
+  "title": "Encode rectified.png + Pipeline Orchestration with JNI Safety",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR7b",
+    "task-S2-PR7c",
+    "task-S2-PR11",
+    "task-S2-PR12",
+    "task-S2-PR13",
+    "task-S2-PR15",
+    "task-S2-PR16"
+  ],
+  "branch": "feature/s2-pr17-pipeline-orchestration",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "jni",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv",
+    "jni"
+  ],
+  "ac_id": "S2-PR17-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/PageDetectionPipeline.kt",
+      "feature/drawing-import/src/main/kotlin/**/cv/PngEncoder.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/PageDetectionPipelineTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/PageDetectionPipeline.kt",
+    "feature/drawing-import/src/main/kotlin/.../cv/PngEncoder.kt"
+  ],
+  "expected_hash": "8e031970af420fc4752c5513f5374a12c893c64831f39f30fb1bf1bcecb41343",
+  "status": "ready",
+  "assignee": null
+}
