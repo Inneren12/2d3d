@@ -1,1 +1,20 @@
-{}
+{
+  "schema_version": 1,
+  "namespace": "global",
+  "terms": {
+    "SSOT": {
+      "full": "Single Source of Truth",
+      "definition": "The single authoritative data source",
+      "examples": ["Room as SSOT for editor state"]
+    },
+    "Determinism": {
+      "definition": "Property of a system to produce identical output for identical input",
+      "applies_to": ["serialization", "golden tests"]
+    },
+    "DAG": {
+      "full": "Directed Acyclic Graph",
+      "definition": "Graph structure for task dependencies without circular references",
+      "applies_to": ["task scheduling", "build system"]
+    }
+  }
+}
