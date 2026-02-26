@@ -24,13 +24,15 @@
 
 <ac-block id="S1-PR1-AC1">
 **Acceptance Criteria for PR1 (Module Setup)**:
-- [ ] Create module `core-drawing2d` with `build.gradle.kts`
-- [ ] Module compiles successfully: `./gradlew :core-drawing2d:build`
-- [ ] Empty test suite runs: `./gradlew :core-drawing2d:test`
+- [ ] Create module `core-drawing2d` with `build.gradle.kts` in `/core/drawing2d/` directory
+- [ ] Module path in settings.gradle.kts: `include(":core:drawing2d")`
+- [ ] Module compiles successfully: `./gradlew :core:drawing2d:build`
+- [ ] Empty test suite runs: `./gradlew :core:drawing2d:test`
 - [ ] NO `android.*` imports anywhere in module (verified by grep)
 - [ ] Dependencies: `kotlinx-serialization-json`, `junit5`, `kotest`
-- [ ] Create `README.md` explaining module purpose
+- [ ] Create `README.md` in module root explaining module purpose
 - [ ] Module structure: `/src/main/kotlin/` and `/src/test/kotlin/`
+- [ ] Test: `grep -r "import android" core/drawing2d/src/main/` returns nothing (exit code 1)
 </ac-block>
 
 ---
@@ -45,17 +47,24 @@
 
 <ac-block id="S1-PR1.5-AC1">
 **Acceptance Criteria for PR1.5 (MathUtils)**:
-- [ ] Implement `fun round(value: Double, decimals: Int): Double` using `(value * factor).toLong().toDouble() / factor`
+- [ ] Implement `fun round(value: Double, decimals: Int): Double` with mathematical rounding (round-half-up)
+- [ ] Implementation must use proper rounding, NOT truncation: For positive values add 0.5 before toLong(), for negative subtract 0.5
+- [ ] Fast path: `val scaled = value * factor; if (scaled >= 0) ((scaled + 0.5).toLong()) else ((scaled - 0.5).toLong()).toDouble() / factor`
+- [ ] Fallback path: `BigDecimal(value).setScale(decimals, RoundingMode.HALF_UP).toDouble()` for edge cases
 - [ ] Implement `fun roundSafe(value: Double, decimals: Int): Double` that returns original value on error (never throws)
 - [ ] Guard: `require(decimals in 0..10)` with clear error message
 - [ ] Guard: `require(abs(value) < 1e9)` to prevent overflow with message "Value too large for safe rounding: {value} (max: 1e9)"
 - [ ] NO `Float` types used anywhere (ARCH-MATH-001 compliance)
-- [ ] NO `roundToInt()` usage (ARCH-SAFE-001 compliance)
-- [ ] Test: `round(1.123456789, 4) === 1.1235` (exact match)
+- [ ] NO simple `toLong()` truncation without rounding adjustment (ARCH-SAFE-001 compliance)
+- [ ] Test: `round(1.123456789, 4) === 1.1235` (MUST pass - verifies rounding not truncation)
+- [ ] Test: `round(1.123449999, 4) === 1.1234` (rounds down)
+- [ ] Test: `round(5.5, 0) === 6.0` (half-up rounding)
+- [ ] Test: `round(-5.5, 0) === -5.0` (half-up for negatives rounds toward zero)
 - [ ] Test: `round(250000.0, 4) === 250000.0` (large value handled)
 - [ ] Test: `round(1e10, 4)` throws `IllegalArgumentException` with clear message
 - [ ] Test: `roundSafe(1e10, 4) === 1e10` (returns original, no throw)
 - [ ] Test: Determinism - calling `round()` twice with same input produces identical output
+- [ ] Test: Verify not using simple truncation: `round(1.9, 0) === 2.0` NOT `1.0`
 - [ ] Code coverage >95% for `MathUtils.kt`
 - [ ] File location: `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/math/MathUtils.kt`
 </ac-block>
@@ -265,7 +274,7 @@
 - [ ] Property-based test (if using Kotest): Generate random Drawing2D, serialize, deserialize, verify equality
 - [ ] Property-based test: `Drawing2D → toJsonStable() → SHA256` is deterministic (call 100 times, all hashes identical)
 - [ ] Overall test coverage for `core-drawing2d` module >80%
-- [ ] All tests pass: `./gradlew :core-drawing2d:test`
+- [ ] All tests pass: `./gradlew :core:drawing2d:test`
 </ac-block>
 
 ---
@@ -324,14 +333,19 @@
   1. Check `file.parentFile?.usableSpace >= data.size * 2L` before writing
   2. Write to `File(parent, "${file.name}.tmp")`
   3. Call `fileOutputStream.fd.sync()` to flush OS buffers to disk (CRITICAL)
-  4. Call `tempFile.renameTo(file)` for atomic replacement
+  4. Use atomic move operation (platform-dependent):
+     - Android API 26+: `Files.move(tempFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE)`
+     - Android API <26: `tempFile.renameTo(file)` with return value check, throw if false
   5. Handle `ENOSPC` (disk full) errors with clear user message
-  6. Cleanup temp file in `finally` block ALWAYS
+  6. Cleanup temp file in `finally` block ALWAYS (even if atomic move fails)
 - [ ] Create custom exception `class InsufficientStorageException(message: String, cause: Throwable?): IOException`
 - [ ] Test: Write succeeds with valid data, file contains expected bytes
 - [ ] Test: Temp file is cleaned up even if write fails
 - [ ] Test: Cannot verify actual crash-safety in unit test, but verify `fd.sync()` is called
 - [ ] Test: If usableSpace < required, throws `InsufficientStorageException` with message "Not enough space. Need {X}KB, have {Y}KB"
+- [ ] Test: On API 26+, verify `Files.move()` is used with `ATOMIC_MOVE` flag
+- [ ] Test: On API <26, verify `renameTo()` return value is checked and exception thrown if false
+- [ ] Test: If destination file exists, atomic move replaces it successfully
 - [ ] Code coverage >85%
 - [ ] File location: `core/storage/src/main/kotlin/com/yourapp/storage/AtomicFileWriter.kt`
 </ac-block>
