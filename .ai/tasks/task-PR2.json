@@ -20,6 +20,6 @@
             "core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/PrimitivesTest.kt"
         ]
     },
-    "expected_hash": "997d4f0aa9c90b1cb3cfd58186fa05b265a21c8e3a8315f1783cb0f12432217a",
+    "expected_hash": "6d61ecb6ef5566b762aa328f3c2302abaead8f929886d131154b117cf236d020",
     "status": "ready"
 }
