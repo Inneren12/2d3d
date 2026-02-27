@@ -1,0 +1,30 @@
+{
+  "id": "task-S4.5-PR18",
+  "title": "Android Instrumentation Tests (Sync)",
+  "sprint": "sprint-4.5",
+  "depends_on": [
+    "task-S4.5-PR15",
+    "task-S4.5-PR13"
+  ],
+  "branch": "feature/s4.5-pr18-android-sync-tests",
+  "arch_scopes": [
+    "domain_core"
+  ],
+  "glossary_scopes": [
+    "global",
+    "2d"
+  ],
+  "ac_id": "S4.5-PR18-AC1",
+  "touches": {
+    "include": [
+      "feature/editor/src/androidTest/kotlin/**/sync/SyncInstrumentationTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/editor/src/androidTest/kotlin/com/example/editor/sync/SyncInstrumentationTest.kt"
+  ],
+  "expected_hash": "77a072282f3cedcae91b37a03ebcad5875da688688a2e2bfc64b8b3429d87268",
+  "status": "ready",
+  "assignee": null
+}
