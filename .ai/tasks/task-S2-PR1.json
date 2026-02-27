@@ -23,7 +23,7 @@
     "feature/drawing-import/build.gradle.kts",
     "feature/drawing-import/src/main/AndroidManifest.xml"
   ],
-  "expected_hash": "bb0faf4f46eea26020c7e19c14220dfe81133f99772877dd81ed717596da1edd",
+  "expected_hash": "ede0d27dd3e2abe3a04217c45874065ac6cf90dc76069268a328361ba249b32e",
   "status": "ready",
   "assignee": null
 }
