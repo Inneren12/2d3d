@@ -19,8 +19,8 @@ if [ -z "$AC_CONTENT" ]; then
   exit 1
 fi
 
-# Calculate SHA256
-ACTUAL_HASH=$(echo "$AC_CONTENT" | sha256sum | cut -d' ' -f1)
+# Calculate SHA256 (strip CR before hashing for cross-platform CRLF compatibility)
+ACTUAL_HASH=$(echo "$AC_CONTENT" | tr -d '\r' | sha256sum | cut -d' ' -f1)
 
 # If task file provided, verify hash
 if [ -n "$TASK_FILE" ]; then
