@@ -1,0 +1,31 @@
+{
+  "id": "task-S4.5-PR04",
+  "title": "Authentication (JWT Tokens)",
+  "sprint": "sprint-4.5",
+  "depends_on": [
+    "task-S4.5-PR03"
+  ],
+  "branch": "feature/s4.5-pr04-auth-jwt",
+  "arch_scopes": [
+    "domain_core"
+  ],
+  "glossary_scopes": [
+    "global",
+    "2d"
+  ],
+  "ac_id": "S4.5-PR04-AC1",
+  "touches": {
+    "include": [
+      "backend/auth.py",
+      "backend/routers/auth.py"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "backend/auth.py",
+    "backend/routers/auth.py"
+  ],
+  "expected_hash": "57ccf108fa37181a2cd9fb64bafef7463b1417d32ff4ebce15155d65d9949828",
+  "status": "ready",
+  "assignee": null
+}
