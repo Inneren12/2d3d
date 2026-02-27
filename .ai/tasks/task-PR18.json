@@ -1,0 +1,42 @@
+{
+    "id": "task-PR18",
+    "title": "Definition of Done Validation",
+    "sprint": "sprint-1",
+    "depends_on": [
+        "task-PR1",
+        "task-PR1.5",
+        "task-PR2",
+        "task-PR3",
+        "task-PR4",
+        "task-PR5",
+        "task-PR6",
+        "task-PR7",
+        "task-PR8",
+        "task-PR9",
+        "task-PR10",
+        "task-PR11",
+        "task-PR12",
+        "task-PR13",
+        "task-PR14",
+        "task-PR15",
+        "task-PR16",
+        "task-PR17"
+    ],
+    "branch": "feature/s1-pr18-sprint-closeout",
+    "arch_scopes": [
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "2d"
+    ],
+    "ac_id": "S1-PR18-AC1",
+    "touches": {
+        "include": [
+            "docs/sprint-1/FILE_OVERVIEW.md",
+            "README.md"
+        ]
+    },
+    "expected_hash": "1881b6aca2c90cacc346070d6c7eec642a7fc907c67a42d73eb784281ecaaf61",
+    "status": "ready"
+}

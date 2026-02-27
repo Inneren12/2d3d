@@ -1,0 +1,22 @@
+{
+    "id": "task-PR17",
+    "title": "Schema Evolution Policy",
+    "sprint": "sprint-1",
+    "depends_on": [],
+    "branch": "feature/s1-pr17-schema-evolution",
+    "arch_scopes": [
+        "documentation"
+    ],
+    "glossary_scopes": [
+        "global",
+        "2d"
+    ],
+    "ac_id": "S1-PR17-AC1",
+    "touches": {
+        "include": [
+            "docs/drawing/SCHEMA_EVOLUTION.md"
+        ]
+    },
+    "expected_hash": "2d985174b173625021d10ac0fed6179fffb3c29ca9fd45c058bebca9b4582dcc",
+    "status": "ready"
+}

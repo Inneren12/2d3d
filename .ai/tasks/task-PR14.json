@@ -1,0 +1,26 @@
+{
+    "id": "task-PR14",
+    "title": "Image Integrity (File SHA256 Strategy)",
+    "sprint": "sprint-1",
+    "depends_on": [
+        "task-PR12"
+    ],
+    "branch": "feature/s1-pr14-image-integrity",
+    "arch_scopes": [
+        "domain_core",
+        "storage"
+    ],
+    "glossary_scopes": [
+        "global",
+        "2d"
+    ],
+    "ac_id": "S1-PR14-AC1",
+    "touches": {
+        "include": [
+            "core/storage/src/main/kotlin/com/yourapp/storage/ImageIntegrity.kt",
+            "core/storage/src/test/kotlin/com/yourapp/storage/ImageIntegrityTest.kt"
+        ]
+    },
+    "expected_hash": "22249027a2e0838202f79d453d2aa14dce056de62627e55bea03620b01471c5f",
+    "status": "ready"
+}
