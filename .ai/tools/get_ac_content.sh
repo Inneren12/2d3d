@@ -3,7 +3,12 @@
 
 AC_ID=$1
 TASK_FILE=${2:-""}
-SPRINT_FILE="specs/sprints/sprint-1.md"
+SPRINT_FILE=$(grep -l "<ac-block id=\"$AC_ID\">" specs/sprints/*.md | head -n 1)
+
+if [ -z "$SPRINT_FILE" ]; then
+  echo "ERROR: AC block $AC_ID not found in any sprint file"
+  exit 1
+fi
 
 # Extract AC block by ID
 AC_CONTENT=$(sed -n "/<ac-block id=\"$AC_ID\">/,/<\/ac-block>/p" "$SPRINT_FILE" | \
