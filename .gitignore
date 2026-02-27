@@ -1,3 +1,8 @@
 /.ai/active_locks/
 .claude/
 .cursor/
+
+# Gradle build outputs
+.gradle/
+build/
+**/build/
