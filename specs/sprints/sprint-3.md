@@ -375,8 +375,8 @@
 
 **Context (Human):** CRITICAL: Define and document coordinate spaces. Store camera matrix components separately to avoid accumulation errors during pan/zoom (ARCH recommendation from deep dive).
 
-<ac-block id="S3-PR09-AC1">
-**Acceptance Criteria for PR09 (Coordinates)**:
+<ac-block id="S3-PR09A-AC1">
+**Acceptance Criteria for PR09A (Coordinates)**:
 - [ ] Create `/docs/editor/COORDINATE_SYSTEMS.md` documenting:
   - Drawing Space: Coordinates in millimeters (origin at drawing top-left)
   - Screen Space: Pixels on device screen (origin at view top-left)
@@ -830,8 +830,8 @@
 
 **Context (Human):** CRITICAL: When deleting node, also delete all connected members (cascading delete). Must be transactional and show confirmation with exact counts to prevent accidental data loss.
 
-<ac-block id="S3-PR19-AC1">
-**Acceptance Criteria for PR19 (Dependency Resolution)**:
+<ac-block id="S3-PR19A-AC1">
+**Acceptance Criteria for PR19A (Dependency Resolution)**:
 - [ ] Create `class DependencyResolver` with method:
 ```kotlin
   fun resolveDependencies(drawing: Drawing2D, entitiesToDelete: Set<String>): DeletionPlan
