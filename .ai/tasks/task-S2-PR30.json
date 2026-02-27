@@ -1,0 +1,30 @@
+{
+  "id": "task-S2-PR30",
+  "title": "Sprint 2 Closeout",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR27",
+    "task-S2-PR28",
+    "task-S2-PR29"
+  ],
+  "branch": "feature/s2-pr30-closeout",
+  "arch_scopes": [
+    "all"
+  ],
+  "glossary_scopes": [
+    "global"
+  ],
+  "ac_id": "S2-PR30-AC1",
+  "touches": {
+    "include": [
+      "**/*"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "README.md"
+  ],
+  "expected_hash": "954817d39dffcde5e1a37fcbf6ac8123433bd945f2aaf0c1578ea863165882f9",
+  "status": "ready",
+  "assignee": null
+}

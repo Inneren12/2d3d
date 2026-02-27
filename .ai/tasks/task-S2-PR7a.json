@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR7a",
+  "title": "MemoryGuard - Safe Image Loading",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR1"
+  ],
+  "branch": "feature/s2-pr7a-memory-guard",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android",
+    "cv"
+  ],
+  "ac_id": "S2-PR7a-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/MemoryGuard.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/MemoryGuardTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/MemoryGuard.kt"
+  ],
+  "expected_hash": "0b11570a8ddeaa10d6942d5cecfa88d2c65e1c70bd6b8ed5f3ff76199974b442",
+  "status": "ready",
+  "assignee": null
+}

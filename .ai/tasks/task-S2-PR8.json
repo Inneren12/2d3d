@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR8",
+  "title": "Edge Detection (Canny)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR7a",
+    "task-S2-PR7c"
+  ],
+  "branch": "feature/s2-pr8-edge-detection",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR8-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/EdgeDetector.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/EdgeDetectorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/EdgeDetector.kt"
+  ],
+  "expected_hash": "79b2f8021bb26f1697676d2fec0a0daa1180055dae471ee5c47ed1cf0eec4bec",
+  "status": "ready",
+  "assignee": null
+}

@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR26",
+  "title": "Project Folder Management + Reconciliation",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR25"
+  ],
+  "branch": "feature/s2-pr26-reconciliation",
+  "arch_scopes": [
+    "android_module",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "storage"
+  ],
+  "ac_id": "S2-PR26-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/storage/ProjectFolderManager.kt",
+      "feature/drawing-import/src/test/kotlin/**/storage/ProjectFolderManagerTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../storage/ProjectFolderManager.kt"
+  ],
+  "expected_hash": "00f80f3fc184b3e9a56fe12b127d31301ead1cff34407f0752daad5f59b4b52d",
+  "status": "ready",
+  "assignee": null
+}

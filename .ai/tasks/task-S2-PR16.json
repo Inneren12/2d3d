@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR16",
+  "title": "Warp Perspective (Rectification)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR14",
+    "task-S2-PR15"
+  ],
+  "branch": "feature/s2-pr16-warp-perspective",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR16-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/PerspectiveWarper.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/PerspectiveWarperTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/PerspectiveWarper.kt"
+  ],
+  "expected_hash": "d36f5c200e0322cb08b97d4f8483eb994f2f803cad453e178c80c0dbce508912",
+  "status": "ready",
+  "assignee": null
+}

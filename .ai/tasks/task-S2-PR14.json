@@ -1,0 +1,32 @@
+{
+  "id": "task-S2-PR14",
+  "title": "Homography Computation",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR11"
+  ],
+  "branch": "feature/s2-pr14-homography",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv",
+    "math"
+  ],
+  "ac_id": "S2-PR14-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/HomographyComputer.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/HomographyComputerTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/HomographyComputer.kt"
+  ],
+  "expected_hash": "819972c3d420fadc121cd27e53f2e981cc344e93d2d1ecf81a9a43ee7a442644",
+  "status": "ready",
+  "assignee": null
+}

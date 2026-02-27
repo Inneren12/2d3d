@@ -1,0 +1,33 @@
+{
+  "id": "task-S2-PR21",
+  "title": "Keystone/Skew Metrics",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR10"
+  ],
+  "branch": "feature/s2-pr21-keystone-metrics",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "math"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv",
+    "math"
+  ],
+  "ac_id": "S2-PR21-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/KeystoneAnalyzer.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/KeystoneAnalyzerTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/KeystoneAnalyzer.kt"
+  ],
+  "expected_hash": "5bc5e728efb06f1e68d4f1c079a6069a635f95dbd64942ea2044d1d6e090c1af",
+  "status": "ready",
+  "assignee": null
+}

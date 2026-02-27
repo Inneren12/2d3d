@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR25",
+  "title": "Manifest Finalization",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR24"
+  ],
+  "branch": "feature/s2-pr25-manifest",
+  "arch_scopes": [
+    "android_module",
+    "storage"
+  ],
+  "glossary_scopes": [
+    "global",
+    "storage"
+  ],
+  "ac_id": "S2-PR25-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/storage/ManifestWriter.kt",
+      "feature/drawing-import/src/test/kotlin/**/storage/ManifestWriterTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../storage/ManifestWriter.kt"
+  ],
+  "expected_hash": "bb881768385342037e6e566ed1b826c0e607c491fc80fc983e5fdae07675376d",
+  "status": "ready",
+  "assignee": null
+}

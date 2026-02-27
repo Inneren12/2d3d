@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR20",
+  "title": "Exposure Metrics (Histogram Analysis)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR17"
+  ],
+  "branch": "feature/s2-pr20-exposure-metrics",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR20-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/ExposureAnalyzer.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/ExposureAnalyzerTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/ExposureAnalyzer.kt"
+  ],
+  "expected_hash": "7b83023be9316cf1fb135eb77385ffbeed340d944b78de9979b8baa54a5db8ba",
+  "status": "ready",
+  "assignee": null
+}

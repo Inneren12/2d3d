@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR10",
+  "title": "Corner Ordering (TL/TR/BR/BL)",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR9"
+  ],
+  "branch": "feature/s2-pr10-corner-ordering",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR10-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/CornerOrdering.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/CornerOrderingTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/CornerOrdering.kt"
+  ],
+  "expected_hash": "afe61b9353a62491967eaf41d98ab0676f0959e9ff78a38bff5c623721b22a48",
+  "status": "ready",
+  "assignee": null
+}

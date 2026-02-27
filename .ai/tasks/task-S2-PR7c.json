@@ -1,0 +1,33 @@
+{
+  "id": "task-S2-PR7c",
+  "title": "Native Memory Cleanup",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR7a"
+  ],
+  "branch": "feature/s2-pr7c-opencv-cleanup",
+  "arch_scopes": [
+    "android_module",
+    "cv",
+    "jni"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android",
+    "cv"
+  ],
+  "ac_id": "S2-PR7c-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/OpenCVExtensions.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/OpenCVExtensionsTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/OpenCVExtensions.kt"
+  ],
+  "expected_hash": "c130cf80c08638dc57f999daafb4715c47f3a1371aa0f0220e4c0c37a3770959",
+  "status": "ready",
+  "assignee": null
+}

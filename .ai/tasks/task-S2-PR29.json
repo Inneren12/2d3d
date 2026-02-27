@@ -1,0 +1,30 @@
+{
+  "id": "task-S2-PR29",
+  "title": "Pipeline Documentation",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR17",
+    "task-S2-PR22"
+  ],
+  "branch": "feature/s2-pr29-pipeline-docs",
+  "arch_scopes": [
+    "documentation"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR29-AC1",
+  "touches": {
+    "include": [
+      "docs/capture/PIPELINE.md"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "docs/capture/PIPELINE.md"
+  ],
+  "expected_hash": "8e951252d258b0d5bb9f53da30487309dcc2705e298f74a8fff5acc0f727389c",
+  "status": "ready",
+  "assignee": null
+}

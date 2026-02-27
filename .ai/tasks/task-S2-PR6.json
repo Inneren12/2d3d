@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR6",
+  "title": "Diagnostics + Logging",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR4"
+  ],
+  "branch": "feature/s2-pr6-diagnostics",
+  "arch_scopes": [
+    "android_module",
+    "diagnostics"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android"
+  ],
+  "ac_id": "S2-PR6-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/diagnostics/CaptureEvent.kt",
+      "feature/drawing-import/src/test/kotlin/**/diagnostics/CaptureEventTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../diagnostics/CaptureEvent.kt"
+  ],
+  "expected_hash": "bad93b62130ac027cc7a97b768c98706a0dddb2c4d63c0c634c34458fa76fceb",
+  "status": "ready",
+  "assignee": null
+}

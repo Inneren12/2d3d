@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR13",
+  "title": "Failure Reasons + Error Codes",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR9"
+  ],
+  "branch": "feature/s2-pr13-error-codes",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR13-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/PageDetectionError.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/PageDetectionErrorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/PageDetectionError.kt"
+  ],
+  "expected_hash": "e1905f901657bcbaa707f0527d920bd9fc302497d7192313231050b031d013e5",
+  "status": "ready",
+  "assignee": null
+}

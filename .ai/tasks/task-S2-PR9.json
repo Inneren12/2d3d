@@ -1,0 +1,31 @@
+{
+  "id": "task-S2-PR9",
+  "title": "Contour Finding + Largest Quad Selection",
+  "sprint": "sprint-2",
+  "depends_on": [
+    "task-S2-PR8"
+  ],
+  "branch": "feature/s2-pr9-contour-detection",
+  "arch_scopes": [
+    "android_module",
+    "cv"
+  ],
+  "glossary_scopes": [
+    "global",
+    "cv"
+  ],
+  "ac_id": "S2-PR9-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/src/main/kotlin/**/cv/ContourDetector.kt",
+      "feature/drawing-import/src/test/kotlin/**/cv/ContourDetectorTest.kt"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/src/main/kotlin/.../cv/ContourDetector.kt"
+  ],
+  "expected_hash": "e4694decff173a745354b1b95627ef9722ead996708b7b12b0f3225351ffe546",
+  "status": "ready",
+  "assignee": null
+}

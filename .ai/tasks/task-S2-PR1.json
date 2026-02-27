@@ -1,0 +1,29 @@
+{
+  "id": "task-S2-PR1",
+  "title": "Module feature-drawing-import Setup",
+  "sprint": "sprint-2",
+  "depends_on": [],
+  "branch": "feature/s2-pr1-module-setup",
+  "arch_scopes": [
+    "android_module"
+  ],
+  "glossary_scopes": [
+    "global",
+    "android"
+  ],
+  "ac_id": "S2-PR1-AC1",
+  "touches": {
+    "include": [
+      "feature/drawing-import/**",
+      "settings.gradle.kts"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "feature/drawing-import/build.gradle.kts",
+    "feature/drawing-import/src/main/AndroidManifest.xml"
+  ],
+  "expected_hash": "bb0faf4f46eea26020c7e19c14220dfe81133f99772877dd81ed717596da1edd",
+  "status": "ready",
+  "assignee": null
+}
