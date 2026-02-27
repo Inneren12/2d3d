@@ -1,0 +1,33 @@
+{
+  "id": "task-S4-PR29",
+  "title": "Documentation Complete",
+  "sprint": "sprint-4",
+  "depends_on": [
+    "task-S4-PR21",
+    "task-S4-PR27"
+  ],
+  "branch": "feature/s4-pr29-documentation",
+  "arch_scopes": [
+    "documentation"
+  ],
+  "glossary_scopes": [
+    "global",
+    "2d"
+  ],
+  "ac_id": "S4-PR29-AC1",
+  "touches": {
+    "include": [
+      "docs/converter/**"
+    ],
+    "exclude": []
+  },
+  "estimated_files": [
+    "docs/converter/PIPELINE_ORDER.md",
+    "docs/converter/PERFORMANCE.md",
+    "docs/converter/DETERMINISM.md",
+    "docs/converter/TROUBLESHOOTING.md"
+  ],
+  "expected_hash": "8a9cb91f2135ce3439f4a87f57facbc1d66df4728915eb5e38f4ba0948a404f9",
+  "status": "ready",
+  "assignee": null
+}

@@ -1,0 +1,4 @@
+# Ensure golden test JSON files always use LF line endings
+# This prevents byte-for-byte comparison failures across platforms
+*.json text eol=lf
+*.sh text eol=lf
