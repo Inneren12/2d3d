@@ -2,7 +2,7 @@
 
 **File:** `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt`
 **Test:** `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/Drawing2DTest.kt`
-**Status:** Step 2/3 — with Page and Layer
+**Status:** COMPLETE — all fields implemented
 
 ---
 
@@ -34,7 +34,7 @@ Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm"
 | `name` | `String` | required | Human-readable layer name |
 | `visible` | `Boolean` | `true` | Controls layer visibility |
 
-## Fields (Step 2/3)
+## Fields (Complete — 12 fields)
 
 | Field | Type | Default | Notes |
 |-------|------|---------|-------|
@@ -46,8 +46,19 @@ Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm"
 | `entities` | `List<EntityV1>` | `emptyList()` | Geometry (lines, circles, …) |
 | `annotations` | `List<AnnotationV1>` | `emptyList()` | Labels, dimensions, tags, groups |
 | `metadata` | `Map<String, String>` | `emptyMap()` | Arbitrary key-value pairs |
+| `syncId` | `String?` | `null` | Cloud sync identifier |
+| `syncStatus` | `String` | `"LOCAL"` | Sync status: "LOCAL", "SYNCING", "SYNCED" |
+| `updatedAt` | `Long` | `0L` | Timestamp in milliseconds since epoch |
+| `version` | `Int` | `1` | Version number for conflict resolution |
 
-**Missing (Step 3):** `syncId: String?`, `syncStatus: String`, `updatedAt: Long`, `version: Int`
+## Sync Fields (for Sprint 4.5)
+
+| Field | Type | Default | Notes |
+|-------|------|---------|-------|
+| `syncId` | `String?` | `null` | Cloud sync identifier |
+| `syncStatus` | `String` | `"LOCAL"` | Sync status: "LOCAL", "SYNCING", "SYNCED" |
+| `updatedAt` | `Long` | `0L` | Timestamp in milliseconds since epoch |
+| `version` | `Int` | `1` | Version number for conflict resolution |
 
 ## Deterministic Serialization — `toJsonStable()`
 

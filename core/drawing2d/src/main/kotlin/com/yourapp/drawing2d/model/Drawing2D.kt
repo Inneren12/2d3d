@@ -28,9 +28,9 @@ data class Layer(
 /**
  * Drawing2D container holding all drawing data.
  *
- * This is Step 2/3 implementation:
- * - Core fields: id, name, page, layers, entities, annotations, metadata
- * - Missing: syncId, syncStatus, updatedAt, version (added in Step 3)
+ * Complete implementation with all fields:
+ * - Core: id, name, page, layers, entities, annotations, metadata
+ * - Sync: syncId, syncStatus, updatedAt, version (for Sprint 4.5)
  */
 @Serializable
 data class Drawing2D(
@@ -42,6 +42,12 @@ data class Drawing2D(
     val entities: List<EntityV1> = emptyList(),
     val annotations: List<AnnotationV1> = emptyList(),
     val metadata: Map<String, String> = emptyMap(),
+
+    // Sync fields (for cloud synchronization in Sprint 4.5)
+    val syncId: String? = null,
+    val syncStatus: String = "LOCAL",
+    val updatedAt: Long = 0L,
+    val version: Int = 1,
 ) {
     /**
      * Produces deterministic JSON output.
