@@ -22,6 +22,44 @@ class Drawing2DTest : FunSpec({
             drawing.entities shouldBe emptyList()
             drawing.annotations shouldBe emptyList()
             drawing.metadata shouldBe emptyMap()
+
+            // Sync field defaults
+            drawing.syncId shouldBe null
+            drawing.syncStatus shouldBe "LOCAL"
+            drawing.updatedAt shouldBe 0L
+            drawing.version shouldBe 1
+        }
+
+        test("sync fields have correct defaults") {
+            val drawing =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
+                )
+
+            drawing.syncId shouldBe null
+            drawing.syncStatus shouldBe "LOCAL"
+            drawing.updatedAt shouldBe 0L
+            drawing.version shouldBe 1
+        }
+
+        test("sync fields can be set explicitly") {
+            val drawing =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
+                    syncId = "sync-123",
+                    syncStatus = "SYNCED",
+                    updatedAt = 1234567890L,
+                    version = 5,
+                )
+
+            drawing.syncId shouldBe "sync-123"
+            drawing.syncStatus shouldBe "SYNCED"
+            drawing.updatedAt shouldBe 1234567890L
+            drawing.version shouldBe 5
         }
 
         test("with entities and annotations") {
