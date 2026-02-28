@@ -42,8 +42,8 @@ class EntityTest : FunSpec({
         }
 
         test("serialization round-trip preserves dashPattern") {
-            val encoded = Json.encodeToString(dashedRed)
-            val decoded = Json.decodeFromString<LineStyle>(encoded)
+            val encoded = json.encodeToString(dashedRed)
+            val decoded = json.decodeFromString<LineStyle>(encoded)
             decoded shouldBe dashedRed
         }
 
@@ -91,14 +91,14 @@ class EntityTest : FunSpec({
 
         test("serialization round-trip preserves all fields") {
             val line = EntityV1.Line(id = "l4", layer = "doors", start = p1, end = p2, style = dashedRed)
-            val encoded = Json.encodeToString<EntityV1>(line)
-            val decoded = Json.decodeFromString<EntityV1>(encoded)
+            val encoded = json.encodeToString<EntityV1>(line)
+            val decoded = json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe line
         }
 
         test("JSON discriminator is 'line'") {
             val encoded =
-                Json.encodeToString<EntityV1>(
+                json.encodeToString<EntityV1>(
                     EntityV1.Line(id = "l5", start = origin, end = p1, style = solidBlack),
                 )
             encoded shouldContain "\"type\":\"line\""
@@ -157,14 +157,14 @@ class EntityTest : FunSpec({
 
         test("serialization round-trip preserves all fields") {
             val circle = EntityV1.Circle(id = "c8", layer = "arcs", center = p2, radius = 7.5, style = dashedRed)
-            val encoded = Json.encodeToString<EntityV1>(circle)
-            val decoded = Json.decodeFromString<EntityV1>(encoded)
+            val encoded = json.encodeToString<EntityV1>(circle)
+            val decoded = json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe circle
         }
 
         test("JSON discriminator is 'circle'") {
             val encoded =
-                Json.encodeToString<EntityV1>(
+                json.encodeToString<EntityV1>(
                     EntityV1.Circle(id = "c9", center = origin, radius = 1.0, style = solidBlack),
                 )
             encoded shouldContain "\"type\":\"circle\""
@@ -226,14 +226,14 @@ class EntityTest : FunSpec({
                     closed = true,
                     style = dashedRed,
                 )
-            val encoded = Json.encodeToString<EntityV1>(poly)
-            val decoded = Json.decodeFromString<EntityV1>(encoded)
+            val encoded = json.encodeToString<EntityV1>(poly)
+            val decoded = json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe poly
         }
 
         test("JSON discriminator is 'polyline'") {
             val encoded =
-                Json.encodeToString<EntityV1>(
+                json.encodeToString<EntityV1>(
                     EntityV1.Polyline(id = "pl9", points = listOf(origin, p1), style = solidBlack),
                 )
             encoded shouldContain "\"type\":\"polyline\""
@@ -395,14 +395,14 @@ class EntityTest : FunSpec({
                     endAngle = 270.0,
                     style = dashedRed,
                 )
-            val encoded = Json.encodeToString<EntityV1>(arc)
-            val decoded = Json.decodeFromString<EntityV1>(encoded)
+            val encoded = json.encodeToString<EntityV1>(arc)
+            val decoded = json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe arc
         }
 
         test("JSON discriminator is 'arc'") {
             val encoded =
-                Json.encodeToString<EntityV1>(
+                json.encodeToString<EntityV1>(
                     EntityV1.Arc(id = "a11", center = origin, radius = 1.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack),
                 )
             encoded shouldContain "\"type\":\"arc\""
@@ -421,8 +421,8 @@ class EntityTest : FunSpec({
                     EntityV1.Polyline(id = "pl1", points = listOf(origin, p1, p2), style = dashedRed),
                     EntityV1.Arc(id = "a1", center = origin, radius = 3.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack),
                 )
-            val encoded = Json.encodeToString(entities)
-            val decoded = Json.decodeFromString<List<EntityV1>>(encoded)
+            val encoded = json.encodeToString(entities)
+            val decoded = json.decodeFromString<List<EntityV1>>(encoded)
             decoded shouldBe entities
         }
     }

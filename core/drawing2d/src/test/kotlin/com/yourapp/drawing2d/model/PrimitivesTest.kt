@@ -3,6 +3,10 @@ package com.yourapp.drawing2d.model
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.doubles.plusOrMinus
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.string.shouldNotContain
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class PrimitivesTest : FunSpec({
 
@@ -198,6 +202,42 @@ class PrimitivesTest : FunSpec({
 
         test("multiplying by -1.0 negates both components") {
             Vector2D(3.0, 4.0) * -1.0 shouldBe Vector2D(-3.0, -4.0)
+        }
+    }
+
+    // ── Point2D serialization with automatic rounding ─────────────────────────
+
+    context("Point2D serialization with automatic rounding") {
+
+        test("Coordinates automatically rounded to 4 decimals") {
+            val point = Point2D(1.123456789, 2.987654321)
+
+            val json = Json.encodeToString(point)
+            val deserialized = Json.decodeFromString<Point2D>(json)
+
+            deserialized shouldBe Point2D(1.1235, 2.9877)
+        }
+
+        test("JSON contains rounded values (verify serializer works)") {
+            val point = Point2D(10.123456789, 20.987654321)
+
+            val json = Json.encodeToString(point)
+
+            json shouldContain "1.1235"
+            json shouldContain "2.9877"
+            json shouldNotContain "123456789"
+        }
+
+        test("Round-trip through serialization preserves rounded values") {
+            val original = Point2D(3.14159265359, 2.71828182846)
+
+            val json1 = Json.encodeToString(original)
+            val deserialized1 = Json.decodeFromString<Point2D>(json1)
+
+            val json2 = Json.encodeToString(deserialized1)
+            val deserialized2 = Json.decodeFromString<Point2D>(json2)
+
+            deserialized1 shouldBe deserialized2
         }
     }
 
