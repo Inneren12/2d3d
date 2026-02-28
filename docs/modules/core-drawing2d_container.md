@@ -20,9 +20,9 @@ a page definition, layers for organization, entities (geometry), annotations
 |-------|------|---------|-------|
 | `width` | `Double` | required | Canvas width (ARCH-MATH-001: Double, not Float) |
 | `height` | `Double` | required | Canvas height (ARCH-MATH-001: Double, not Float) |
-| `units` | `String` | `"mm"` | Unit system (e.g. `"mm"`, `"in"`, `"px"`) |
+| `units` | `Units` | `Units.MM` | Unit system enum (`MM`, `CM`, `M`, `INCHES`, `FEET`) |
 
-Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm")`
+Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = Units.MM)`
 
 ## Layer
 
@@ -47,7 +47,7 @@ Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm"
 | `annotations` | `List<AnnotationV1>` | `emptyList()` | Labels, dimensions, tags, groups |
 | `metadata` | `Map<String, String>` | `emptyMap()` | Arbitrary key-value pairs |
 | `syncId` | `String?` | `null` | Cloud sync identifier |
-| `syncStatus` | `String` | `"LOCAL"` | Sync status: "LOCAL", "SYNCING", "SYNCED" |
+| `syncStatus` | `SyncStatus` | `SyncStatus.LOCAL` | Sync status enum (`LOCAL`, `SYNCING`, `SYNCED`) |
 | `updatedAt` | `Long` | `0L` | Timestamp in milliseconds since epoch |
 | `version` | `Int` | `1` | Version number for conflict resolution |
 
@@ -56,7 +56,7 @@ Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm"
 | Field | Type | Default | Notes |
 |-------|------|---------|-------|
 | `syncId` | `String?` | `null` | Cloud sync identifier |
-| `syncStatus` | `String` | `"LOCAL"` | Sync status: "LOCAL", "SYNCING", "SYNCED" |
+| `syncStatus` | `SyncStatus` | `SyncStatus.LOCAL` | Sync status enum (`LOCAL`, `SYNCING`, `SYNCED`) |
 | `updatedAt` | `Long` | `0L` | Timestamp in milliseconds since epoch |
 | `version` | `Int` | `1` | Version number for conflict resolution |
 
@@ -66,8 +66,9 @@ Example: A4 landscape page → `Page(width = 297.0, height = 210.0, units = "mm"
 
 1. **Sort collections** by `id` lexicographically before encoding
    — `layers`, `entities`, `annotations`
-2. **Pretty-print** with 2-space indent (`prettyPrint = true`, `prettyPrintIndent = "  "`)
-3. **Map key order** is stable by default in `kotlinx.serialization`
+2. **Sort metadata map** by key via `toSortedMap()` before encoding
+   — guarantees key order regardless of insertion order
+3. **Pretty-print** with 2-space indent (`prettyPrint = true`, `prettyPrintIndent = "  "`)
 
 ### SHA256 Stability Guarantees
 

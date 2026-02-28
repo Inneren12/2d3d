@@ -6,13 +6,25 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /**
+ * Sync status for cloud synchronization.
+ *
+ * Serialized as plain enum name strings ("LOCAL", "SYNCING", "SYNCED").
+ */
+@Serializable
+enum class SyncStatus {
+    LOCAL,
+    SYNCING,
+    SYNCED,
+}
+
+/**
  * Page defines the canvas dimensions and unit system.
  */
 @Serializable
 data class Page(
     val width: Double,
     val height: Double,
-    val units: String = "mm",
+    val units: Units = Units.MM,
 )
 
 /**
@@ -45,7 +57,7 @@ data class Drawing2D(
 
     // Sync fields (for cloud synchronization in Sprint 4.5)
     val syncId: String? = null,
-    val syncStatus: String = "LOCAL",
+    val syncStatus: SyncStatus = SyncStatus.LOCAL,
     val updatedAt: Long = 0L,
     val version: Int = 1,
 ) {
@@ -55,8 +67,8 @@ data class Drawing2D(
      * Guarantees:
      * - Same data → same JSON → same SHA256 hash
      * - Collections sorted by ID lexicographically
+     * - Metadata map sorted by key via [toSortedMap]
      * - Pretty print with 2-space indent
-     * - Stable map key ordering (alphabetically)
      */
     @OptIn(ExperimentalSerializationApi::class)
     fun toJsonStable(): String {
@@ -71,6 +83,7 @@ data class Drawing2D(
                 layers = this.layers.sortedBy { it.id },
                 entities = this.entities.sortedBy { it.id },
                 annotations = this.annotations.sortedBy { it.id },
+                metadata = this.metadata.toSortedMap(),
             )
 
         return json.encodeToString(stable)
