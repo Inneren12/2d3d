@@ -14,9 +14,11 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test Drawing",
+                    page = Page(width = 1000.0, height = 800.0),
                 )
 
             drawing.schemaVersion shouldBe 1
+            drawing.layers shouldBe emptyList()
             drawing.entities shouldBe emptyList()
             drawing.annotations shouldBe emptyList()
             drawing.metadata shouldBe emptyMap()
@@ -46,12 +48,59 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
                     entities = listOf(entity),
                     annotations = listOf(annotation),
                 )
 
             drawing.entities.size shouldBe 1
             drawing.annotations.size shouldBe 1
+        }
+    }
+
+    context("Page and Layer") {
+
+        test("Page constructed with dimensions") {
+            val page =
+                Page(
+                    width = 297.0, // A4 width in mm
+                    height = 210.0, // A4 height in mm
+                    units = "mm",
+                )
+
+            page.width shouldBe 297.0
+            page.height shouldBe 210.0
+            page.units shouldBe "mm"
+        }
+
+        test("Layer constructed with id and name") {
+            val layer =
+                Layer(
+                    id = "layer1",
+                    name = "Structural Elements",
+                    visible = true,
+                )
+
+            layer.id shouldBe "layer1"
+            layer.name shouldBe "Structural Elements"
+            layer.visible shouldBe true
+        }
+
+        test("Drawing2D with page and layers") {
+            val page = Page(width = 1000.0, height = 800.0)
+            val layer1 = Layer(id = "l1", name = "Layer 1")
+            val layer2 = Layer(id = "l2", name = "Layer 2")
+
+            val drawing =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = page,
+                    layers = listOf(layer1, layer2),
+                )
+
+            drawing.page shouldBe page
+            drawing.layers.size shouldBe 2
         }
     }
 
@@ -62,6 +111,7 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test Drawing",
+                    page = Page(width = 1000.0, height = 800.0),
                     entities =
                         listOf(
                             EntityV1.Line(
@@ -85,6 +135,7 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
                     entities =
                         listOf(
                             EntityV1.Line(
@@ -127,6 +178,7 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
                     entities = listOf(entity1, entity2),
                 )
 
@@ -134,7 +186,35 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
                     entities = listOf(entity2, entity1),
+                )
+
+            val hash1 = drawing1.toJsonStable().sha256()
+            val hash2 = drawing2.toJsonStable().sha256()
+
+            hash1 shouldBe hash2
+        }
+
+        test("AC: layer order doesn't affect hash (layers sorted)") {
+            val layer1 = Layer(id = "l1", name = "Layer 1")
+            val layer2 = Layer(id = "l2", name = "Layer 2")
+            val page = Page(width = 1000.0, height = 800.0)
+
+            val drawing1 =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = page,
+                    layers = listOf(layer1, layer2),
+                )
+
+            val drawing2 =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = page,
+                    layers = listOf(layer2, layer1), // Reversed
                 )
 
             val hash1 = drawing1.toJsonStable().sha256()
@@ -151,6 +231,7 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test Drawing",
+                    page = Page(width = 297.0, height = 210.0, units = "mm"),
                     entities =
                         listOf(
                             EntityV1.Circle(
