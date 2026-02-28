@@ -20,6 +20,7 @@
 | `AnnotationV1.Tag` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
 | `AnnotationV1.Group` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
 | `Units` (enum) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `Drawing2D` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 
 ## core/drawing2d — test sources
 
@@ -29,6 +30,7 @@
 | `PrimitivesTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/PrimitivesTest.kt` |
 | `MathUtilsTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/MathUtilsTest.kt` |
 | `AnnotationTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/AnnotationTest.kt` |
+| `Drawing2DTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/Drawing2DTest.kt` |
 
 ## Build
 
