@@ -46,6 +46,24 @@ class EntityTest : FunSpec({
             val decoded = Json.decodeFromString<LineStyle>(encoded)
             decoded shouldBe dashedRed
         }
+
+        // ── Immutability-exploit regression ───────────────────────────────────
+
+        test("SECURITY: mutating the caller's MutableList after construction does not corrupt LineStyle.dashPattern") {
+            // Arrange — hand a MutableList as dashPattern.
+            val mutableDash = mutableListOf(4.0, 2.0)
+            val style = LineStyle(color = "#FF0000", width = 1.5, dashPattern = mutableDash)
+
+            // Sanity-check: pattern was stored correctly.
+            style.dashPattern shouldBe listOf(4.0, 2.0)
+
+            // Act — attacker clears the original list.
+            mutableDash.clear()
+
+            // Assert — internal list is a separate copy; dashPattern is unchanged.
+            style.dashPattern shouldBe listOf(4.0, 2.0)
+            style.dashPattern!!.size shouldBe 2
+        }
     }
 
     // ── EntityV1.Line ─────────────────────────────────────────────────────────
@@ -207,6 +225,38 @@ class EntityTest : FunSpec({
                 EntityV1.Polyline(id = "pl9", points = listOf(origin, p1), style = solidBlack)
             )
             encoded shouldContain "\"type\":\"polyline\""
+        }
+
+        // ── Immutability-exploit regression ───────────────────────────────────
+
+        test("SECURITY: mutating the caller's MutableList after construction does not corrupt Polyline") {
+            // Arrange — build a MutableList with two valid points and hand it to Polyline.
+            val mutablePoints = mutableListOf(origin, p1, p2)
+            val poly = EntityV1.Polyline(id = "exploit-pl1", points = mutablePoints, style = solidBlack)
+
+            // Sanity-check: the polyline was constructed successfully with 3 points.
+            poly.points.size shouldBe 3
+
+            // Act — the attacker clears the original list AFTER construction.
+            mutablePoints.clear()
+
+            // Assert — the Polyline's internal list is independent; it still holds
+            // its original 3 points, and the invariant (size >= 2) is unbroken.
+            poly.points.size shouldBe 3
+            poly.points shouldBe listOf(origin, p1, p2)
+        }
+
+        test("SECURITY: mutating caller's MutableList cannot produce a sub-2-point Polyline") {
+            // Construct with the minimum valid size.
+            val mutablePoints = mutableListOf(p1, p2)
+            val poly = EntityV1.Polyline(id = "exploit-pl2", points = mutablePoints, style = solidBlack)
+
+            // Act — strip the original list down to 0 elements.
+            mutablePoints.clear()
+
+            // Assert — internal snapshot is still exactly 2 points; invariant holds.
+            poly.points.size shouldBe 2
+            poly.points shouldBe listOf(p1, p2)
         }
     }
 

@@ -1,0 +1,29 @@
+{
+    "id": "task-S6-PR14",
+    "title": "Batch Accept/Reject",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR12"
+    ],
+    "branch": "feature/s6-pr14-batch-accept-reject",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR14-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/ui/OcrReviewFragment.kt"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/ui/OcrReviewFragment.kt"
+    ],
+    "expected_hash": "17bcf8f3b7d77a597a944e0dc715e481599abd2cf27f693a2f36c5c013df4073",
+    "status": "ready",
+    "assignee": null
+}

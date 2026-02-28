@@ -1,0 +1,29 @@
+{
+    "id": "task-S6-PR01",
+    "title": "Module `feature-ocr` Setup",
+    "sprint": "sprint-6",
+    "depends_on": [],
+    "branch": "feature/s6-pr01-module-setup",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR01-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/**",
+            "settings.gradle.kts"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/build.gradle.kts",
+        "feature/ocr/src/main/AndroidManifest.xml"
+    ],
+    "expected_hash": "f28f913e935962a0680355b355ef3daf82b32e2a70ee340fc17adec191016f26",
+    "status": "ready",
+    "assignee": null
+}

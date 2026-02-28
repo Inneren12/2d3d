@@ -1,0 +1,31 @@
+{
+    "id": "task-S6-PR02",
+    "title": "ML Kit Text Recognition Setup",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR01"
+    ],
+    "branch": "feature/s6-pr02-mlkit-text-recognition",
+    "arch_scopes": [
+        "android_module",
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR02-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/ml/TextRecognizer.kt",
+            "feature/ocr/src/test/kotlin/**/ml/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/ml/TextRecognizer.kt"
+    ],
+    "expected_hash": "bf566b371b2e2960ab5fc9f4f36a1a74d7b13e941693caaf5e1b1ee669a8f2c6",
+    "status": "ready",
+    "assignee": null
+}

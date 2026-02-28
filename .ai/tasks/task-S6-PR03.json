@@ -1,0 +1,30 @@
+{
+    "id": "task-S6-PR03",
+    "title": "BitmapRegionDecoder Singleton (ARCH-PERF-002)",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR01"
+    ],
+    "branch": "feature/s6-pr03-bitmap-decoder-singleton",
+    "arch_scopes": [
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR03-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/image/OcrBitmapLoader.kt",
+            "feature/ocr/src/test/kotlin/**/image/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/image/OcrBitmapLoader.kt"
+    ],
+    "expected_hash": "9a3aba31a0db8711fff56a0a2cd18e99d6cba426ca7676e606c869f0ddd2225c",
+    "status": "ready",
+    "assignee": null
+}

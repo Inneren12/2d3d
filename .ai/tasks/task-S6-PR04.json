@@ -1,0 +1,32 @@
+{
+    "id": "task-S6-PR04",
+    "title": "OCR Pipeline Orchestrator",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR02",
+        "task-S6-PR03"
+    ],
+    "branch": "feature/s6-pr04-ocr-pipeline",
+    "arch_scopes": [
+        "domain_core",
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR04-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/pipeline/OcrPipeline.kt",
+            "feature/ocr/src/test/kotlin/**/pipeline/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/pipeline/OcrPipeline.kt"
+    ],
+    "expected_hash": "c6078b4b8123376a0decb5a15209ec7eb486f7f7c7b147b809f944ff6c118a90",
+    "status": "ready",
+    "assignee": null
+}

@@ -1,0 +1,32 @@
+{
+    "id": "task-S6-PR17",
+    "title": "Error Handling & User Feedback",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR04",
+        "task-S6-PR12"
+    ],
+    "branch": "feature/s6-pr17-error-handling",
+    "arch_scopes": [
+        "android_module",
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR17-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/pipeline/OcrPipeline.kt",
+        "feature/ocr/src/main/kotlin/com/app/ocr/ui/OcrReviewFragment.kt"
+    ],
+    "expected_hash": "ef4ff186c6718d3c498f7aee00df2c8ad3724725218adae8c14e25b86d7dc752",
+    "status": "ready",
+    "assignee": null
+}

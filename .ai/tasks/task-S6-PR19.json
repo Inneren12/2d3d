@@ -1,0 +1,31 @@
+{
+    "id": "task-S6-PR19",
+    "title": "Performance Optimization",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR03",
+        "task-S6-PR04"
+    ],
+    "branch": "feature/s6-pr19-performance-optimization",
+    "arch_scopes": [
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR19-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/pipeline/OcrPipeline.kt",
+            "feature/ocr/src/test/kotlin/**/pipeline/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/pipeline/OcrPipeline.kt"
+    ],
+    "expected_hash": "ee695dd4504ae1534653e5472dd9cbe6861ef1ce4707d7f3703668ed60faca20",
+    "status": "ready",
+    "assignee": null
+}

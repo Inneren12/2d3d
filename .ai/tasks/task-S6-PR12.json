@@ -1,0 +1,32 @@
+{
+    "id": "task-S6-PR12",
+    "title": "OCR Review Screen",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR07"
+    ],
+    "branch": "feature/s6-pr12-ocr-review-ui",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR12-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/ui/OcrReviewFragment.kt",
+            "feature/ocr/src/main/res/layout/",
+            "feature/ocr/src/androidTest/kotlin/**/ui/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/ui/OcrReviewFragment.kt",
+        "feature/ocr/src/main/res/layout/fragment_ocr_review.xml"
+    ],
+    "expected_hash": "d5ef0a1074b578af623233f9323346673522899721171995d4e308c830d3c4f0",
+    "status": "ready",
+    "assignee": null
+}

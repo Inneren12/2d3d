@@ -1,0 +1,30 @@
+{
+    "id": "task-S6-PR07",
+    "title": "Confidence Filtering",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR04"
+    ],
+    "branch": "feature/s6-pr07-confidence-filter",
+    "arch_scopes": [
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR07-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/filtering/ConfidenceFilter.kt",
+            "feature/ocr/src/test/kotlin/**/filtering/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/filtering/ConfidenceFilter.kt"
+    ],
+    "expected_hash": "e9a0d92c8ede85bfd3282e09a256d18c28ee54742236f9c504ab348b4e219c73",
+    "status": "ready",
+    "assignee": null
+}

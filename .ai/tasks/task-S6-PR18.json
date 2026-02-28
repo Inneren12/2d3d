@@ -1,0 +1,31 @@
+{
+    "id": "task-S6-PR18",
+    "title": "Analytics & Telemetry",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR04",
+        "task-S6-PR12"
+    ],
+    "branch": "feature/s6-pr18-analytics-telemetry",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR18-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/analytics/OcrAnalytics.kt",
+            "feature/ocr/src/test/kotlin/**/analytics/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/analytics/OcrAnalytics.kt"
+    ],
+    "expected_hash": "e233aa2ba00e657e3396604c1435ded079190a4a253e4c37669612628bd67063",
+    "status": "ready",
+    "assignee": null
+}

@@ -1,0 +1,35 @@
+{
+    "id": "task-S6-PR24",
+    "title": "Sprint 6 Closeout & Production Launch",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR21",
+        "task-S6-PR22",
+        "task-S6-PR23",
+        "task-S6-PR18",
+        "task-S6-PR17"
+    ],
+    "branch": "feature/s6-pr24-production-launch",
+    "arch_scopes": [
+        "android_module",
+        "domain_core"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR24-AC1",
+    "touches": {
+        "include": [
+            "README.md",
+            "app/**"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "README.md"
+    ],
+    "expected_hash": "4251f1f6eec6e1764e150bd6959be1800e56b35b98a049f49f49d26353bb47b2",
+    "status": "ready",
+    "assignee": null
+}

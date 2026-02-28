@@ -1,0 +1,30 @@
+{
+    "id": "task-S6-PR20",
+    "title": "Offline Support",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR01",
+        "task-S6-PR02"
+    ],
+    "branch": "feature/s6-pr20-offline-support",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR20-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/build.gradle.kts"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/build.gradle.kts"
+    ],
+    "expected_hash": "659fba59a2dc60de5a10117615cf8738a850746115003e5307122db5ad973823",
+    "status": "ready",
+    "assignee": null
+}

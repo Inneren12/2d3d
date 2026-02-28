@@ -1,0 +1,31 @@
+{
+    "id": "task-S6-PR16",
+    "title": "OCR Button in Drawing Import Flow",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR04",
+        "task-S6-PR12"
+    ],
+    "branch": "feature/s6-pr16-ocr-import-integration",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR16-AC1",
+    "touches": {
+        "include": [
+            "feature/drawing-import/src/main/kotlin/**/CaptureResultFragment.kt",
+            "feature/drawing-import/src/androidTest/kotlin/**/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/drawing-import/src/main/kotlin/com/app/import/ui/CaptureResultFragment.kt"
+    ],
+    "expected_hash": "37f6246f60ad333281b129eeaac82ea1ed2594b63ba5d1e604735454ee049a40",
+    "status": "ready",
+    "assignee": null
+}

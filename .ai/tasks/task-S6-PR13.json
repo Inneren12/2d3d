@@ -1,0 +1,30 @@
+{
+    "id": "task-S6-PR13",
+    "title": "Dimension Overlay on Image",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR04"
+    ],
+    "branch": "feature/s6-pr13-dimension-overlay",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR13-AC1",
+    "touches": {
+        "include": [
+            "feature/ocr/src/main/kotlin/**/ui/DimensionOverlayView.kt",
+            "feature/ocr/src/test/kotlin/**/ui/"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "feature/ocr/src/main/kotlin/com/app/ocr/ui/DimensionOverlayView.kt"
+    ],
+    "expected_hash": "32239046a129c4b24f7cfeec6a4e26fc4509c8a95534da5a428d5dc493aeb79c",
+    "status": "ready",
+    "assignee": null
+}

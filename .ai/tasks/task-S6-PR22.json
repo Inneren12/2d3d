@@ -1,0 +1,30 @@
+{
+    "id": "task-S6-PR22",
+    "title": "App Store Assets",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR21"
+    ],
+    "branch": "feature/s6-pr22-store-assets",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global"
+    ],
+    "ac_id": "S6-PR22-AC1",
+    "touches": {
+        "include": [
+            "app/store-assets/**"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "app/store-assets/screenshots/",
+        "app/store-assets/icon/",
+        "app/store-assets/video/"
+    ],
+    "expected_hash": "8252c3f544ca0316f601735974f6486bced70b8243dc866c44e78ca94656dcbb",
+    "status": "ready",
+    "assignee": null
+}

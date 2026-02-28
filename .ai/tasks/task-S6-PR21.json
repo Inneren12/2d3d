@@ -1,0 +1,33 @@
+{
+    "id": "task-S6-PR21",
+    "title": "End-to-End Testing",
+    "sprint": "sprint-6",
+    "depends_on": [
+        "task-S6-PR15",
+        "task-S6-PR16",
+        "task-S6-PR17",
+        "task-S6-PR19",
+        "task-S6-PR20"
+    ],
+    "branch": "feature/s6-pr21-e2e-testing",
+    "arch_scopes": [
+        "android_module"
+    ],
+    "glossary_scopes": [
+        "global",
+        "android"
+    ],
+    "ac_id": "S6-PR21-AC1",
+    "touches": {
+        "include": [
+            "app/src/androidTest/kotlin/**/E2EFlowTest.kt"
+        ],
+        "exclude": []
+    },
+    "estimated_files": [
+        "app/src/androidTest/kotlin/com/app/E2EFlowTest.kt"
+    ],
+    "expected_hash": "5185532c23a91d47ce7c78ffe0eee8f10169743a4e0ec8b37c8d98e56ba70a70",
+    "status": "ready",
+    "assignee": null
+}
