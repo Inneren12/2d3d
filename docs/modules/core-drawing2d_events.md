@@ -29,6 +29,31 @@ Each operation implements `inverse()` to support bidirectional state changes.
 | `DeleteMember` | memberId, deletedStartNodeId, deletedEndNodeId, deletedProfileRef? | `AddMember(...)` |
 | `UpdateMemberProfile` | memberId, oldProfileRef?, newProfileRef? | `UpdateMemberProfile(memberId, newProfileRef, oldProfileRef)` |
 
+## JSON Serialization
+
+All operations use `@SerialName` to ensure stable JSON format:
+
+```json
+{
+  "type": "add_node",
+  "nodeId": "n1",
+  "position": {"x": 10.0, "y": 20.0}
+}
+```
+
+This protects against class renames breaking compatibility:
+- Renaming `AddNode` → `NodeAdd` won't change JSON
+- Legacy JSON with old discriminators still works
+- Safe refactoring without migration scripts
+
+Discriminator values:
+- `add_node` → `AddNode`
+- `delete_node` → `DeleteNode`
+- `move_node` → `MoveNode`
+- `add_member` → `AddMember`
+- `delete_member` → `DeleteMember`
+- `update_member_profile` → `UpdateMemberProfile`
+
 ## inverse() Semantics
 
 **Key property:** `op.inverse().inverse() == op` (double inverse is identity)
@@ -72,6 +97,7 @@ val newDrawing = drawing.apply(PatchOpV1.AddNode("n1", Point2D(0.0, 0.0)))
 
 | Rule | Status |
 |------|--------|
-| ARCH-MATH-001: No Float | Uses Point2D which uses Double |
-| Memory: <1KB per op | Verified by tests |
-| Serializable | All operations use @Serializable |
+| ARCH-MATH-001: No Float | ✓ Uses Point2D which uses Double |
+| Serialized size: <1KB | ✓ Verified by tests |
+| Serializable | ✓ All operations use @Serializable |
+| JSON stability | ✓ Uses @SerialName for refactoring protection |

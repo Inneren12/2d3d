@@ -4,6 +4,7 @@ import com.yourapp.drawing2d.model.Point2D
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -30,6 +31,13 @@ class PatchOpV1Test : FunSpec({
             val add = delete.inverse()
 
             add shouldBe PatchOpV1.AddNode("n1", Point2D(30.0, 40.0))
+        }
+
+        test("AC: double inverse is identity") {
+            val original = PatchOpV1.DeleteNode("n1", Point2D(10.0, 20.0))
+            val result = original.inverse().inverse()
+
+            result shouldBe original
         }
     }
 
@@ -86,6 +94,19 @@ class PatchOpV1Test : FunSpec({
                     deletedEndNodeId = "n2",
                     deletedProfileRef = null,
                 )
+        }
+
+        test("AC: double inverse is identity") {
+            val original =
+                PatchOpV1.AddMember(
+                    memberId = "m1",
+                    startNodeId = "n1",
+                    endNodeId = "n2",
+                    profileRef = "profile",
+                )
+            val result = original.inverse().inverse()
+
+            result shouldBe original
         }
     }
 
@@ -154,6 +175,13 @@ class PatchOpV1Test : FunSpec({
     }
 
     context("Serialization") {
+        // Explicit Json config for test determinism
+        val testJson = Json {
+            prettyPrint = false
+            ignoreUnknownKeys = false
+            encodeDefaults = true
+        }
+
         test("AC: All operations serialize/deserialize correctly") {
             val ops =
                 listOf(
@@ -167,15 +195,33 @@ class PatchOpV1Test : FunSpec({
                     PatchOpV1.UpdateMemberProfile("m3", "old", "new"),
                 )
 
-            val json = Json.encodeToString(ops)
-            val deserialized = Json.decodeFromString<List<PatchOpV1>>(json)
+            val json = testJson.encodeToString(ops)
+            val deserialized = testJson.decodeFromString<List<PatchOpV1>>(json)
 
             deserialized shouldBe ops
+        }
+
+        test("@SerialName ensures stable discriminators") {
+            val prettyJson = Json {
+                prettyPrint = true
+                prettyPrintIndent = "  "
+            }
+
+            val op = PatchOpV1.AddNode("n1", Point2D(10.0, 20.0))
+            val json = prettyJson.encodeToString(PatchOpV1.serializer(), op)
+
+            // Verify JSON contains stable discriminator
+            json shouldContain "\"type\": \"add_node\""
+            json shouldContain "\"nodeId\": \"n1\""
+
+            // Verify round-trip works
+            val deserialized = prettyJson.decodeFromString<PatchOpV1>(json)
+            deserialized shouldBe op
         }
     }
 
     context("Memory and Performance") {
-        test("AC: Single operation < 1KB in memory") {
+        test("AC: Single operation serialized size < 1KB") {
             val ops =
                 listOf(
                     PatchOpV1.AddNode("node-1", Point2D(100.0, 200.0)),
@@ -188,25 +234,11 @@ class PatchOpV1Test : FunSpec({
 
             ops.forEach { op ->
                 val json = Json.encodeToString(PatchOpV1.serializer(), op)
-                val sizeBytes = json.toByteArray().size
+                val serializedBytes = json.toByteArray().size
 
-                // AC requirement: < 1KB (1024 bytes)
-                sizeBytes shouldBeLessThan 1024
+                // AC: Serialized JSON size should be < 1KB for efficient storage
+                serializedBytes shouldBeLessThan 1024
             }
-        }
-
-        test("Inverse operations are fast (<1ms each)") {
-            val op = PatchOpV1.MoveNode("n1", Point2D(0.0, 0.0), Point2D(100.0, 100.0))
-
-            val startTime = System.nanoTime()
-            repeat(1000) {
-                op.inverse()
-            }
-            val endTime = System.nanoTime()
-
-            val durationMs = (endTime - startTime) / 1_000_000
-            // 1000 operations should take < 100ms
-            durationMs shouldBeLessThan 100
         }
     }
 

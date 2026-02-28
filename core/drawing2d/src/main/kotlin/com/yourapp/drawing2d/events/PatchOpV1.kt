@@ -1,6 +1,7 @@
 package com.yourapp.drawing2d.events
 
 import com.yourapp.drawing2d.model.Point2D
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -19,6 +20,7 @@ sealed class PatchOpV1 {
     abstract fun inverse(): PatchOpV1
 
     @Serializable
+    @SerialName("add_node")
     data class AddNode(
         val nodeId: String,
         val position: Point2D,
@@ -27,6 +29,7 @@ sealed class PatchOpV1 {
     }
 
     @Serializable
+    @SerialName("delete_node")
     data class DeleteNode(
         val nodeId: String,
         val deletedPosition: Point2D,
@@ -35,6 +38,7 @@ sealed class PatchOpV1 {
     }
 
     @Serializable
+    @SerialName("move_node")
     data class MoveNode(
         val nodeId: String,
         val oldPosition: Point2D,
@@ -44,6 +48,7 @@ sealed class PatchOpV1 {
     }
 
     @Serializable
+    @SerialName("add_member")
     data class AddMember(
         val memberId: String,
         val startNodeId: String,
@@ -60,6 +65,7 @@ sealed class PatchOpV1 {
     }
 
     @Serializable
+    @SerialName("delete_member")
     data class DeleteMember(
         val memberId: String,
         val deletedStartNodeId: String,
@@ -76,6 +82,7 @@ sealed class PatchOpV1 {
     }
 
     @Serializable
+    @SerialName("update_member_profile")
     data class UpdateMemberProfile(
         val memberId: String,
         val oldProfileRef: String?,
