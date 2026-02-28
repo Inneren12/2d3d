@@ -27,6 +27,10 @@ class MathUtilsTest : FunSpec({
             MathUtils.round(5.5, 0) shouldBe 6.0
         }
 
+        test("AC: round(-5.5, 0) == -5.0 (half-up rounds toward zero for negatives)") {
+            MathUtils.round(-5.5, 0) shouldBe -5.0
+        }
+
         test("rounds 1.5 to 0 decimals -> 2.0 (half-up)") {
             MathUtils.round(1.5, 0) shouldBe 2.0
         }
@@ -46,8 +50,8 @@ class MathUtilsTest : FunSpec({
             MathUtils.round(250000.123456, 4) shouldBe 250000.1235
         }
 
-        test("250000.0 exactly rounds to itself at 4 decimals") {
-            MathUtils.round(250000.0, 4) shouldBe 250000.0
+        test("AC: round(250000.123456, 4) == 250000.1235 (large value with decimals)") {
+            MathUtils.round(250_000.123456, 4) shouldBe 250_000.1235
         }
     }
 
@@ -178,10 +182,15 @@ class MathUtilsTest : FunSpec({
             second shouldBe third
         }
 
-        test("determinism holds for large values") {
-            val first  = MathUtils.round(250000.123456, 4)
-            val second = MathUtils.round(250000.123456, 4)
+        test("determinism holds for large values with decimals") {
+            val first  = MathUtils.round(250_000.123456, 4)
+            val second = MathUtils.round(250_000.123456, 4)
+            val third  = MathUtils.round(250_000.123456, 4)
+            first shouldBe 250_000.1235
+            second shouldBe 250_000.1235
+            third shouldBe 250_000.1235
             first shouldBe second
+            second shouldBe third
         }
     }
 })
