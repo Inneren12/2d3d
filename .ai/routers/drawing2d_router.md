@@ -20,6 +20,7 @@
 | `AnnotationV1.Tag` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
 | `AnnotationV1.Group` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
 | `Units` (enum) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `SyncStatus` (enum) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 | `Page` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 | `Layer` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 | `Drawing2D` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |

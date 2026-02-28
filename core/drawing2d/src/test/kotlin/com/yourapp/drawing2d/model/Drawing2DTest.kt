@@ -1,6 +1,7 @@
 package com.yourapp.drawing2d.model
 
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.json.Json
 import java.security.MessageDigest
@@ -25,7 +26,7 @@ class Drawing2DTest : FunSpec({
 
             // Sync field defaults
             drawing.syncId shouldBe null
-            drawing.syncStatus shouldBe "LOCAL"
+            drawing.syncStatus shouldBe SyncStatus.LOCAL
             drawing.updatedAt shouldBe 0L
             drawing.version shouldBe 1
         }
@@ -39,7 +40,7 @@ class Drawing2DTest : FunSpec({
                 )
 
             drawing.syncId shouldBe null
-            drawing.syncStatus shouldBe "LOCAL"
+            drawing.syncStatus shouldBe SyncStatus.LOCAL
             drawing.updatedAt shouldBe 0L
             drawing.version shouldBe 1
         }
@@ -51,13 +52,13 @@ class Drawing2DTest : FunSpec({
                     name = "Test",
                     page = Page(width = 1000.0, height = 800.0),
                     syncId = "sync-123",
-                    syncStatus = "SYNCED",
+                    syncStatus = SyncStatus.SYNCED,
                     updatedAt = 1234567890L,
                     version = 5,
                 )
 
             drawing.syncId shouldBe "sync-123"
-            drawing.syncStatus shouldBe "SYNCED"
+            drawing.syncStatus shouldBe SyncStatus.SYNCED
             drawing.updatedAt shouldBe 1234567890L
             drawing.version shouldBe 5
         }
@@ -103,12 +104,12 @@ class Drawing2DTest : FunSpec({
                 Page(
                     width = 297.0, // A4 width in mm
                     height = 210.0, // A4 height in mm
-                    units = "mm",
+                    units = Units.MM,
                 )
 
             page.width shouldBe 297.0
             page.height shouldBe 210.0
-            page.units shouldBe "mm"
+            page.units shouldBe Units.MM
         }
 
         test("Layer constructed with id and name") {
@@ -234,6 +235,29 @@ class Drawing2DTest : FunSpec({
             hash1 shouldBe hash2
         }
 
+        test("AC: metadata key order doesn't affect hash (map sorted)") {
+            val drawing1 =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
+                    metadata = linkedMapOf("zebra" to "z", "alpha" to "a", "mid" to "m"),
+                )
+
+            val drawing2 =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = Page(width = 1000.0, height = 800.0),
+                    metadata = linkedMapOf("alpha" to "a", "mid" to "m", "zebra" to "z"),
+                )
+
+            val hash1 = drawing1.toJsonStable().sha256()
+            val hash2 = drawing2.toJsonStable().sha256()
+
+            hash1 shouldBe hash2
+        }
+
         test("AC: layer order doesn't affect hash (layers sorted)") {
             val layer1 = Layer(id = "l1", name = "Layer 1")
             val layer2 = Layer(id = "l2", name = "Layer 2")
@@ -262,6 +286,55 @@ class Drawing2DTest : FunSpec({
         }
     }
 
+    context("Page.units – enum type safety") {
+
+        test("AC: Page.units is a Units enum, not a String") {
+            val page = Page(width = 297.0, height = 210.0, units = Units.INCHES)
+            page.units shouldBe Units.INCHES
+        }
+
+        test("AC: Units enum contains all expected values") {
+            Units.values().toList().map { it.name } shouldContainExactly
+                listOf("MM", "CM", "M", "INCHES", "FEET")
+        }
+
+        test("AC: Page default units is Units.MM") {
+            val page = Page(width = 100.0, height = 100.0)
+            page.units shouldBe Units.MM
+        }
+    }
+
+    context("SyncStatus – enum type safety") {
+
+        test("AC: SyncStatus enum contains all expected values") {
+            SyncStatus.values().toList().map { it.name } shouldContainExactly
+                listOf("LOCAL", "SYNCING", "SYNCED")
+        }
+
+        test("AC: Drawing2D default syncStatus is SyncStatus.LOCAL") {
+            val drawing =
+                Drawing2D(
+                    id = "d1",
+                    name = "Test",
+                    page = Page(width = 100.0, height = 100.0),
+                )
+            drawing.syncStatus shouldBe SyncStatus.LOCAL
+        }
+
+        test("AC: syncStatus can be set to all enum values") {
+            for (status in SyncStatus.values()) {
+                val drawing =
+                    Drawing2D(
+                        id = "d1",
+                        name = "Test",
+                        page = Page(width = 100.0, height = 100.0),
+                        syncStatus = status,
+                    )
+                drawing.syncStatus shouldBe status
+            }
+        }
+    }
+
     context("toJsonStable – serialization round-trip") {
 
         test("AC: round-trip preserves all data") {
@@ -269,7 +342,7 @@ class Drawing2DTest : FunSpec({
                 Drawing2D(
                     id = "d1",
                     name = "Test Drawing",
-                    page = Page(width = 297.0, height = 210.0, units = "mm"),
+                    page = Page(width = 297.0, height = 210.0, units = Units.MM),
                     entities =
                         listOf(
                             EntityV1.Circle(

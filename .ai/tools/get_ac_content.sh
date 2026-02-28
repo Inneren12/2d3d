@@ -6,7 +6,7 @@ TASK_FILE=${2:-""}
 SPRINT_FILE=$(grep -l "<ac-block id=\"$AC_ID\">" specs/sprints/*.md | head -n 1)
 
 if [ -z "$SPRINT_FILE" ]; then
-  echo "ERROR: AC block $AC_ID not found in any sprint file"
+  printf 'ERROR: AC block %s not found in any sprint file\n' "$AC_ID"
   exit 1
 fi
 
@@ -15,25 +15,25 @@ AC_CONTENT=$(sed -n "/<ac-block id=\"$AC_ID\">/,/<\/ac-block>/p" "$SPRINT_FILE" 
   sed '1d;$d')  # Remove opening/closing tags
 
 if [ -z "$AC_CONTENT" ]; then
-  echo "ERROR: AC block $AC_ID not found"
+  printf 'ERROR: AC block %s not found\n' "$AC_ID"
   exit 1
 fi
 
-# Calculate SHA256 (strip CR before hashing for cross-platform CRLF compatibility)
-ACTUAL_HASH=$(echo "$AC_CONTENT" | tr -d '\r' | sha256sum | cut -d' ' -f1)
+# Calculate SHA256 (printf avoids trailing-newline variance; strip CR for CRLF compat)
+ACTUAL_HASH=$(printf '%s' "$AC_CONTENT" | tr -d '\r' | sha256sum | cut -d' ' -f1)
 
 # If task file provided, verify hash
 if [ -n "$TASK_FILE" ]; then
   EXPECTED_HASH=$(jq -r '.expected_hash' "$TASK_FILE")
 
   if [ "$ACTUAL_HASH" != "$EXPECTED_HASH" ]; then
-    echo "ERROR: STALE_CONTEXT - AC block has been modified"
-    echo "Expected hash: $EXPECTED_HASH"
-    echo "Actual hash: $ACTUAL_HASH"
-    echo "ACTION REQUIRED: Update task file or review AC changes"
+    printf 'ERROR: STALE_CONTEXT - AC block has been modified\n'
+    printf 'Expected hash: %s\n' "$EXPECTED_HASH"
+    printf 'Actual hash: %s\n' "$ACTUAL_HASH"
+    printf 'ACTION REQUIRED: Update task file or review AC changes\n'
     exit 2
   fi
 fi
 
 # Return AC content
-echo "$AC_CONTENT"
+printf '%s\n' "$AC_CONTENT"
