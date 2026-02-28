@@ -14,6 +14,12 @@
 | `EntityV1.Arc` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Entity.kt` |
 | `LineStyle` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Entity.kt` |
 | `MathUtils` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/math/MathUtils.kt` |
+| `AnnotationV1` (sealed base) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `AnnotationV1.Text` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `AnnotationV1.Dimension` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `AnnotationV1.Tag` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `AnnotationV1.Group` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
+| `Units` (enum) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Annotation.kt` |
 
 ## core/drawing2d — test sources
 
@@ -22,6 +28,7 @@
 | `EntityTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/EntityTest.kt` |
 | `PrimitivesTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/PrimitivesTest.kt` |
 | `MathUtilsTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/MathUtilsTest.kt` |
+| `AnnotationTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/AnnotationTest.kt` |
 
 ## Build
 
