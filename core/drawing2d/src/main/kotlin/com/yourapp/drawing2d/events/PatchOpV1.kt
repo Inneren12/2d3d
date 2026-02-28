@@ -6,9 +6,10 @@ import kotlinx.serialization.Serializable
 /**
  * Event Sourcing delta operations with inverse() for undo/redo.
  *
- * Step 1/3 implementation:
- * - Node operations only
- * - Missing: Member operations (Step 2)
+ * Step 2/3 implementation:
+ * - Node operations: AddNode, DeleteNode, MoveNode
+ * - Member operations: AddMember, DeleteMember, UpdateMemberProfile
+ * - Missing: Advanced tests and memory verification (Step 3)
  */
 @Serializable
 sealed class PatchOpV1 {
@@ -37,5 +38,51 @@ sealed class PatchOpV1 {
         val newPosition: Point2D,
     ) : PatchOpV1() {
         override fun inverse() = MoveNode(nodeId, newPosition, oldPosition)
+    }
+
+    @Serializable
+    data class AddMember(
+        val memberId: String,
+        val startNodeId: String,
+        val endNodeId: String,
+        val profileRef: String? = null,
+    ) : PatchOpV1() {
+        override fun inverse() =
+            DeleteMember(
+                memberId = memberId,
+                deletedStartNodeId = startNodeId,
+                deletedEndNodeId = endNodeId,
+                deletedProfileRef = profileRef,
+            )
+    }
+
+    @Serializable
+    data class DeleteMember(
+        val memberId: String,
+        val deletedStartNodeId: String,
+        val deletedEndNodeId: String,
+        val deletedProfileRef: String? = null,
+    ) : PatchOpV1() {
+        override fun inverse() =
+            AddMember(
+                memberId = memberId,
+                startNodeId = deletedStartNodeId,
+                endNodeId = deletedEndNodeId,
+                profileRef = deletedProfileRef,
+            )
+    }
+
+    @Serializable
+    data class UpdateMemberProfile(
+        val memberId: String,
+        val oldProfileRef: String?,
+        val newProfileRef: String?,
+    ) : PatchOpV1() {
+        override fun inverse() =
+            UpdateMemberProfile(
+                memberId = memberId,
+                oldProfileRef = newProfileRef,
+                newProfileRef = oldProfileRef,
+            )
     }
 }

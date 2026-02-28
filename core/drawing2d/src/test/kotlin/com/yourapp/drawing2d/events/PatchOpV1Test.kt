@@ -48,13 +48,123 @@ class PatchOpV1Test : FunSpec({
         }
     }
 
+    context("AddMember operations") {
+        test("AC: AddMember.inverse() returns DeleteMember") {
+            val add =
+                PatchOpV1.AddMember(
+                    memberId = "m1",
+                    startNodeId = "n1",
+                    endNodeId = "n2",
+                    profileRef = "profile-123",
+                )
+            val delete = add.inverse()
+
+            delete shouldBe
+                PatchOpV1.DeleteMember(
+                    memberId = "m1",
+                    deletedStartNodeId = "n1",
+                    deletedEndNodeId = "n2",
+                    deletedProfileRef = "profile-123",
+                )
+        }
+
+        test("AddMember with null profileRef") {
+            val add =
+                PatchOpV1.AddMember(
+                    memberId = "m1",
+                    startNodeId = "n1",
+                    endNodeId = "n2",
+                    profileRef = null,
+                )
+            val delete = add.inverse()
+
+            delete shouldBe
+                PatchOpV1.DeleteMember(
+                    memberId = "m1",
+                    deletedStartNodeId = "n1",
+                    deletedEndNodeId = "n2",
+                    deletedProfileRef = null,
+                )
+        }
+    }
+
+    context("DeleteMember operations") {
+        test("AC: DeleteMember.inverse() returns AddMember") {
+            val delete =
+                PatchOpV1.DeleteMember(
+                    memberId = "m1",
+                    deletedStartNodeId = "n1",
+                    deletedEndNodeId = "n2",
+                    deletedProfileRef = "profile-456",
+                )
+            val add = delete.inverse()
+
+            add shouldBe
+                PatchOpV1.AddMember(
+                    memberId = "m1",
+                    startNodeId = "n1",
+                    endNodeId = "n2",
+                    profileRef = "profile-456",
+                )
+        }
+
+        test("AC: double inverse is identity") {
+            val original =
+                PatchOpV1.DeleteMember(
+                    memberId = "m1",
+                    deletedStartNodeId = "n1",
+                    deletedEndNodeId = "n2",
+                )
+            val result = original.inverse().inverse()
+
+            result shouldBe original
+        }
+    }
+
+    context("UpdateMemberProfile operations") {
+        test("AC: UpdateMemberProfile.inverse() swaps old/new") {
+            val update =
+                PatchOpV1.UpdateMemberProfile(
+                    memberId = "m1",
+                    oldProfileRef = "old-profile",
+                    newProfileRef = "new-profile",
+                )
+            val inversed = update.inverse()
+
+            inversed shouldBe
+                PatchOpV1.UpdateMemberProfile(
+                    memberId = "m1",
+                    oldProfileRef = "new-profile",
+                    newProfileRef = "old-profile",
+                )
+        }
+
+        test("AC: double inverse equals original") {
+            val original =
+                PatchOpV1.UpdateMemberProfile(
+                    memberId = "m1",
+                    oldProfileRef = "profile-a",
+                    newProfileRef = "profile-b",
+                )
+            val result = original.inverse().inverse()
+
+            result shouldBe original
+        }
+    }
+
     context("Serialization") {
-        test("AC: Operations serialize/deserialize correctly") {
-            val ops = listOf(
-                PatchOpV1.AddNode("n1", Point2D(1.0, 2.0)),
-                PatchOpV1.DeleteNode("n2", Point2D(3.0, 4.0)),
-                PatchOpV1.MoveNode("n3", Point2D(5.0, 6.0), Point2D(7.0, 8.0)),
-            )
+        test("AC: All operations serialize/deserialize correctly") {
+            val ops =
+                listOf(
+                    // Node operations
+                    PatchOpV1.AddNode("n1", Point2D(1.0, 2.0)),
+                    PatchOpV1.DeleteNode("n2", Point2D(3.0, 4.0)),
+                    PatchOpV1.MoveNode("n3", Point2D(5.0, 6.0), Point2D(7.0, 8.0)),
+                    // Member operations
+                    PatchOpV1.AddMember("m1", "n1", "n2", "profile-1"),
+                    PatchOpV1.DeleteMember("m2", "n3", "n4", null),
+                    PatchOpV1.UpdateMemberProfile("m3", "old", "new"),
+                )
 
             val json = Json.encodeToString(ops)
             val deserialized = Json.decodeFromString<List<PatchOpV1>>(json)
