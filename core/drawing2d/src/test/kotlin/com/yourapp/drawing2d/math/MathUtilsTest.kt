@@ -15,8 +15,16 @@ class MathUtilsTest : FunSpec({
             MathUtils.round(1.123456789, 4) shouldBe 1.1235
         }
 
+        test("AC: round(1.123449999, 4) == 1.1234 (rounds down)") {
+            MathUtils.round(1.123449999, 4) shouldBe 1.1234
+        }
+
         test("default decimals parameter is 4") {
             MathUtils.round(1.123456789) shouldBe 1.1235
+        }
+
+        test("AC: round(5.5, 0) == 6.0 (half-up)") {
+            MathUtils.round(5.5, 0) shouldBe 6.0
         }
 
         test("rounds 1.5 to 0 decimals -> 2.0 (half-up)") {
@@ -25,6 +33,10 @@ class MathUtilsTest : FunSpec({
 
         test("rounds 1.4 to 0 decimals -> 1.0") {
             MathUtils.round(1.4, 0) shouldBe 1.0
+        }
+
+        test("AC: round(1.9, 0) == 2.0 (rounding not truncation)") {
+            MathUtils.round(1.9, 0) shouldBe 2.0
         }
     }
 
@@ -85,11 +97,17 @@ class MathUtilsTest : FunSpec({
             }
         }
 
-        test("exception message mentions the offending value") {
+        test("exception message mentions the offending value and max") {
             val ex = shouldThrow<IllegalArgumentException> {
                 MathUtils.round(2e9, 4)
             }
-            ex.message?.contains("1e9") shouldBe true
+            ex.message shouldBe "Value too large for safe rounding: 2.0E9 (max: 1e9)"
+        }
+
+        test("AC: round(1e10, 4) throws IllegalArgumentException") {
+            shouldThrow<IllegalArgumentException> {
+                MathUtils.round(1e10, 4)
+            }
         }
     }
 
@@ -131,6 +149,10 @@ class MathUtilsTest : FunSpec({
             MathUtils.roundSafe(2e9, 4) shouldBe 2e9
         }
 
+        test("AC: roundSafe(1e10, 4) == 1e10 (no throw)") {
+            MathUtils.roundSafe(1e10, 4) shouldBe 1e10
+        }
+
         test("negative extreme value <-1e9 returns original value without throwing") {
             MathUtils.roundSafe(-2e9, 4) shouldBe -2e9
         }
@@ -141,6 +163,25 @@ class MathUtilsTest : FunSpec({
 
         test("invalid decimals (>10) returns original value without throwing") {
             MathUtils.roundSafe(1.0, 11) shouldBe 1.0
+        }
+    }
+
+    // ── determinism ───────────────────────────────────────────────────────────
+
+    context("round – determinism") {
+
+        test("AC: repeated calls with same input produce identical result") {
+            val first  = MathUtils.round(1.123456789, 4)
+            val second = MathUtils.round(1.123456789, 4)
+            val third  = MathUtils.round(1.123456789, 4)
+            first shouldBe second
+            second shouldBe third
+        }
+
+        test("determinism holds for large values") {
+            val first  = MathUtils.round(250000.123456, 4)
+            val second = MathUtils.round(250000.123456, 4)
+            first shouldBe second
         }
     }
 })

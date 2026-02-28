@@ -1,6 +1,8 @@
 package com.yourapp.drawing2d.math
 
 import com.yourapp.domain.Precision
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.math.abs
 
 object MathUtils {
@@ -9,6 +11,9 @@ object MathUtils {
      * Rounds [value] to [decimals] decimal places using deterministic toLong() scaling.
      * Complies with ARCH-MATH-001 (Double only) and ARCH-SAFE-001 (toLong, not roundToInt).
      *
+     * Fast path: (scaled ± 0.5).toLong() for O(1) performance.
+     * Fallback: BigDecimal for any edge cases the fast path cannot handle cleanly.
+     *
      * @throws IllegalArgumentException if decimals not in 0..10 or abs(value) >= 1e9
      */
     fun round(value: Double, decimals: Int = Precision.DEFAULT_DECIMALS): Double {
@@ -16,11 +21,16 @@ object MathUtils {
             "decimals must be in range 0..10, was $decimals"
         }
         require(abs(value) < 1e9) {
-            "abs(value) must be < 1e9 to prevent overflow, was $value"
+            "Value too large for safe rounding: $value (max: 1e9)"
         }
         val factor = tenPow(decimals)
-        val sign = if (value >= 0.0) 0.5 else -0.5
-        return (value * factor + sign).toLong().toDouble() / factor
+        val scaled = value * factor
+        return try {
+            val sign = if (scaled >= 0.0) 0.5 else -0.5
+            (scaled + sign).toLong().toDouble() / factor
+        } catch (_: Exception) {
+            BigDecimal(value).setScale(decimals, RoundingMode.HALF_UP).toDouble()
+        }
     }
 
     /**
