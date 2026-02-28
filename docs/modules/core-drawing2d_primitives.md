@@ -75,12 +75,33 @@ Returns the Euclidean distance `sqrt((x2-x1)² + (y2-y1)²)`.
 Returns a copy of the point with both coordinates rounded to **4 decimal
 places** via `MathUtils.round(_, 4)`.
 
+**Note:** This method is automatically called during serialization via
+a custom `KSerializer`. You don't need to call it manually — all
+serialized Point2D instances are automatically rounded to 4 decimals.
+
+Example:
+```kotlin
+val point = Point2D(1.123456789, 2.987654321)
+val json = Json.encodeToString(point)
+// JSON: {"x": 1.1235, "y": 2.9877}  ← Automatically rounded
+```
+
 **Why 4 decimals?** Serialization formats such as JSON do not guarantee
 round-trip fidelity for arbitrary `Double` values. By rounding to a fixed
 precision before serialisation, two `Point2D` instances that are geometrically
 equivalent (within sub-micron tolerance for typical canvas coordinates) will
 always produce identical JSON output, making file diffs and hash comparisons
 deterministic.
+
+### Custom Serializer
+
+Point2D uses a custom `KSerializer` (`Point2DSerializer`) that ensures:
+1. **Automatic rounding:** Coordinates rounded to 4 decimals during serialization
+2. **Deterministic JSON:** Same Point2D always produces same JSON
+3. **Size optimization:** No excessive decimal places in JSON
+4. **Cross-platform:** Consistent output on ARM/x86/JVM/Android
+
+This is transparent to users — just call `Json.encodeToString(point)`.
 
 ---
 
