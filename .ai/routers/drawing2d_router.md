@@ -23,6 +23,13 @@
 | `Page` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 | `Layer` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
 | `Drawing2D` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/model/Drawing2D.kt` |
+| `PatchOpV1` (sealed) | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.AddNode` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.DeleteNode` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.MoveNode` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.AddMember` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.DeleteMember` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
+| `PatchOpV1.UpdateMemberProfile` | `core/drawing2d/src/main/kotlin/com/yourapp/drawing2d/events/PatchOpV1.kt` |
 
 ## core/drawing2d — test sources
 
@@ -33,6 +40,7 @@
 | `MathUtilsTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/math/MathUtilsTest.kt` |
 | `AnnotationTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/AnnotationTest.kt` |
 | `Drawing2DTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/Drawing2DTest.kt` |
+| `PatchOpV1Test` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/events/PatchOpV1Test.kt` |
 
 ## Build
 

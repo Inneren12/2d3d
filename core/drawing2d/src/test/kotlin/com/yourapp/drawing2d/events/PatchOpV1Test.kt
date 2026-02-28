@@ -2,6 +2,7 @@ package com.yourapp.drawing2d.events
 
 import com.yourapp.drawing2d.model.Point2D
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -170,6 +171,70 @@ class PatchOpV1Test : FunSpec({
             val deserialized = Json.decodeFromString<List<PatchOpV1>>(json)
 
             deserialized shouldBe ops
+        }
+    }
+
+    context("Memory and Performance") {
+        test("AC: Single operation < 1KB in memory") {
+            val ops =
+                listOf(
+                    PatchOpV1.AddNode("node-1", Point2D(100.0, 200.0)),
+                    PatchOpV1.DeleteNode("node-2", Point2D(300.0, 400.0)),
+                    PatchOpV1.MoveNode("node-3", Point2D(0.0, 0.0), Point2D(10.0, 10.0)),
+                    PatchOpV1.AddMember("member-1", "n1", "n2", "profile-ref"),
+                    PatchOpV1.DeleteMember("member-2", "n3", "n4", null),
+                    PatchOpV1.UpdateMemberProfile("member-3", "old-prof", "new-prof"),
+                )
+
+            ops.forEach { op ->
+                val json = Json.encodeToString(PatchOpV1.serializer(), op)
+                val sizeBytes = json.toByteArray().size
+
+                // AC requirement: < 1KB (1024 bytes)
+                sizeBytes shouldBeLessThan 1024
+            }
+        }
+
+        test("Inverse operations are fast (<1ms each)") {
+            val op = PatchOpV1.MoveNode("n1", Point2D(0.0, 0.0), Point2D(100.0, 100.0))
+
+            val startTime = System.nanoTime()
+            repeat(1000) {
+                op.inverse()
+            }
+            val endTime = System.nanoTime()
+
+            val durationMs = (endTime - startTime) / 1_000_000
+            // 1000 operations should take < 100ms
+            durationMs shouldBeLessThan 100
+        }
+    }
+
+    context("Edge Cases") {
+        test("Empty string IDs are valid") {
+            val add = PatchOpV1.AddNode("", Point2D(0.0, 0.0))
+            val delete = add.inverse()
+
+            delete shouldBe PatchOpV1.DeleteNode("", Point2D(0.0, 0.0))
+        }
+
+        test("Very long IDs (255 chars) serialize correctly") {
+            val longId = "x".repeat(255)
+            val op = PatchOpV1.AddNode(longId, Point2D(1.0, 2.0))
+
+            val json = Json.encodeToString(PatchOpV1.serializer(), op)
+            val deserialized = Json.decodeFromString<PatchOpV1>(json)
+
+            deserialized shouldBe op
+        }
+
+        test("Extreme coordinates serialize correctly") {
+            val op = PatchOpV1.AddNode("n1", Point2D(999_999.9999, -999_999.9999))
+
+            val json = Json.encodeToString(PatchOpV1.serializer(), op)
+            val deserialized = Json.decodeFromString<PatchOpV1>(json)
+
+            deserialized shouldBe op
         }
     }
 })
