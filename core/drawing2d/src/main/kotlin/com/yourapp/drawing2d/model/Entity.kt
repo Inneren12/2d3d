@@ -23,19 +23,20 @@ import kotlinx.serialization.Serializable
 data class LineStyle private constructor(
     val color: String,
     val width: Double,
-    val dashPattern: List<Double>? = null
+    val dashPattern: List<Double>? = null,
 ) {
     companion object {
         /** Public factory — copies [dashPattern] before storing it. */
         operator fun invoke(
             color: String,
             width: Double,
-            dashPattern: List<Double>? = null
-        ): LineStyle = LineStyle(
-            color = color,
-            width = width,
-            dashPattern = dashPattern?.toList()
-        )
+            dashPattern: List<Double>? = null,
+        ): LineStyle =
+            LineStyle(
+                color = color,
+                width = width,
+                dashPattern = dashPattern?.toList(),
+            )
     }
 }
 
@@ -64,7 +65,7 @@ sealed class EntityV1 {
         override val layer: String? = null,
         val start: Point2D,
         val end: Point2D,
-        val style: LineStyle
+        val style: LineStyle,
     ) : EntityV1()
 
     /**
@@ -81,7 +82,7 @@ sealed class EntityV1 {
         override val layer: String? = null,
         val center: Point2D,
         val radius: Double,
-        val style: LineStyle
+        val style: LineStyle,
     ) : EntityV1() {
         init {
             require(radius > 0 && radius.isFinite()) {
@@ -103,9 +104,8 @@ sealed class EntityV1 {
         override val layer: String? = null,
         val points: List<Point2D>,
         val closed: Boolean = false,
-        val style: LineStyle
+        val style: LineStyle,
     ) : EntityV1() {
-
         init {
             require(points.size >= 2) {
                 "Polyline must have at least 2 points"
@@ -128,14 +128,15 @@ sealed class EntityV1 {
                 layer: String? = null,
                 points: List<Point2D>,
                 closed: Boolean = false,
-                style: LineStyle
-            ): Polyline = Polyline(
-                id = id,
-                layer = layer,
-                points = points.toList(),
-                closed = closed,
-                style = style
-            )
+                style: LineStyle,
+            ): Polyline =
+                Polyline(
+                    id = id,
+                    layer = layer,
+                    points = points.toList(),
+                    closed = closed,
+                    style = style,
+                )
         }
     }
 
@@ -157,7 +158,7 @@ sealed class EntityV1 {
         val radius: Double,
         val startAngle: Double,
         val endAngle: Double,
-        val style: LineStyle
+        val style: LineStyle,
     ) : EntityV1() {
         init {
             require(radius > 0 && radius.isFinite()) {

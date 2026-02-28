@@ -97,9 +97,10 @@ class EntityTest : FunSpec({
         }
 
         test("JSON discriminator is 'line'") {
-            val encoded = Json.encodeToString<EntityV1>(
-                EntityV1.Line(id = "l5", start = origin, end = p1, style = solidBlack)
-            )
+            val encoded =
+                Json.encodeToString<EntityV1>(
+                    EntityV1.Line(id = "l5", start = origin, end = p1, style = solidBlack),
+                )
             encoded shouldContain "\"type\":\"line\""
         }
     }
@@ -109,9 +110,10 @@ class EntityTest : FunSpec({
     context("EntityV1.Circle") {
 
         test("AC: radius = -5.0 throws IllegalArgumentException") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                EntityV1.Circle(id = "c1", center = origin, radius = -5.0, style = solidBlack)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    EntityV1.Circle(id = "c1", center = origin, radius = -5.0, style = solidBlack)
+                }
             ex.message shouldContain "-5.0"
         }
 
@@ -122,9 +124,10 @@ class EntityTest : FunSpec({
         }
 
         test("AC: radius = Double.POSITIVE_INFINITY throws IllegalArgumentException") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                EntityV1.Circle(id = "c3", center = origin, radius = Double.POSITIVE_INFINITY, style = solidBlack)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    EntityV1.Circle(id = "c3", center = origin, radius = Double.POSITIVE_INFINITY, style = solidBlack)
+                }
             ex.message shouldContain "Infinity"
         }
 
@@ -160,9 +163,10 @@ class EntityTest : FunSpec({
         }
 
         test("JSON discriminator is 'circle'") {
-            val encoded = Json.encodeToString<EntityV1>(
-                EntityV1.Circle(id = "c9", center = origin, radius = 1.0, style = solidBlack)
-            )
+            val encoded =
+                Json.encodeToString<EntityV1>(
+                    EntityV1.Circle(id = "c9", center = origin, radius = 1.0, style = solidBlack),
+                )
             encoded shouldContain "\"type\":\"circle\""
         }
     }
@@ -172,16 +176,18 @@ class EntityTest : FunSpec({
     context("EntityV1.Polyline") {
 
         test("AC: 1 point throws IllegalArgumentException with correct message") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                EntityV1.Polyline(id = "pl1", points = listOf(origin), style = solidBlack)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    EntityV1.Polyline(id = "pl1", points = listOf(origin), style = solidBlack)
+                }
             ex.message shouldBe "Polyline must have at least 2 points"
         }
 
         test("empty list throws IllegalArgumentException") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                EntityV1.Polyline(id = "pl2", points = emptyList(), style = solidBlack)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    EntityV1.Polyline(id = "pl2", points = emptyList(), style = solidBlack)
+                }
             ex.message shouldBe "Polyline must have at least 2 points"
         }
 
@@ -212,18 +218,24 @@ class EntityTest : FunSpec({
         }
 
         test("serialization round-trip preserves all fields including closed=true") {
-            val poly = EntityV1.Polyline(
-                id = "pl8", layer = "roof", points = listOf(origin, p1, p2), closed = true, style = dashedRed
-            )
+            val poly =
+                EntityV1.Polyline(
+                    id = "pl8",
+                    layer = "roof",
+                    points = listOf(origin, p1, p2),
+                    closed = true,
+                    style = dashedRed,
+                )
             val encoded = Json.encodeToString<EntityV1>(poly)
             val decoded = Json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe poly
         }
 
         test("JSON discriminator is 'polyline'") {
-            val encoded = Json.encodeToString<EntityV1>(
-                EntityV1.Polyline(id = "pl9", points = listOf(origin, p1), style = solidBlack)
-            )
+            val encoded =
+                Json.encodeToString<EntityV1>(
+                    EntityV1.Polyline(id = "pl9", points = listOf(origin, p1), style = solidBlack),
+                )
             encoded shouldContain "\"type\":\"polyline\""
         }
 
@@ -265,19 +277,25 @@ class EntityTest : FunSpec({
     context("EntityV1.Arc") {
 
         test("valid arc constructs correctly") {
-            val arc = EntityV1.Arc(
-                id = "a1", center = origin, radius = 5.0,
-                startAngle = 0.0, endAngle = 90.0, style = solidBlack
-            )
+            val arc =
+                EntityV1.Arc(
+                    id = "a1",
+                    center = origin,
+                    radius = 5.0,
+                    startAngle = 0.0,
+                    endAngle = 90.0,
+                    style = solidBlack,
+                )
             arc.radius shouldBe 5.0
             arc.startAngle shouldBe 0.0
             arc.endAngle shouldBe 90.0
         }
 
         test("negative radius throws IllegalArgumentException") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                EntityV1.Arc(id = "a2", center = origin, radius = -1.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    EntityV1.Arc(id = "a2", center = origin, radius = -1.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack)
+                }
             ex.message shouldContain "-1.0"
         }
 
@@ -290,8 +308,12 @@ class EntityTest : FunSpec({
         test("infinite radius throws IllegalArgumentException") {
             shouldThrow<IllegalArgumentException> {
                 EntityV1.Arc(
-                    id = "a4", center = origin, radius = Double.POSITIVE_INFINITY,
-                    startAngle = 0.0, endAngle = 90.0, style = solidBlack
+                    id = "a4",
+                    center = origin,
+                    radius = Double.POSITIVE_INFINITY,
+                    startAngle = 0.0,
+                    endAngle = 90.0,
+                    style = solidBlack,
                 )
             }
         }
@@ -299,8 +321,12 @@ class EntityTest : FunSpec({
         test("NaN radius throws IllegalArgumentException") {
             shouldThrow<IllegalArgumentException> {
                 EntityV1.Arc(
-                    id = "a5", center = origin, radius = Double.NaN,
-                    startAngle = 0.0, endAngle = 90.0, style = solidBlack
+                    id = "a5",
+                    center = origin,
+                    radius = Double.NaN,
+                    startAngle = 0.0,
+                    endAngle = 90.0,
+                    style = solidBlack,
                 )
             }
         }
@@ -308,8 +334,12 @@ class EntityTest : FunSpec({
         test("non-finite startAngle throws IllegalArgumentException") {
             shouldThrow<IllegalArgumentException> {
                 EntityV1.Arc(
-                    id = "a6", center = origin, radius = 5.0,
-                    startAngle = Double.NaN, endAngle = 90.0, style = solidBlack
+                    id = "a6",
+                    center = origin,
+                    radius = 5.0,
+                    startAngle = Double.NaN,
+                    endAngle = 90.0,
+                    style = solidBlack,
                 )
             }
         }
@@ -317,42 +347,64 @@ class EntityTest : FunSpec({
         test("non-finite endAngle throws IllegalArgumentException") {
             shouldThrow<IllegalArgumentException> {
                 EntityV1.Arc(
-                    id = "a7", center = origin, radius = 5.0,
-                    startAngle = 0.0, endAngle = Double.POSITIVE_INFINITY, style = solidBlack
+                    id = "a7",
+                    center = origin,
+                    radius = 5.0,
+                    startAngle = 0.0,
+                    endAngle = Double.POSITIVE_INFINITY,
+                    style = solidBlack,
                 )
             }
         }
 
         test("layer is assignable") {
-            val arc = EntityV1.Arc(
-                id = "a8", layer = "curves", center = origin, radius = 3.0,
-                startAngle = 45.0, endAngle = 180.0, style = solidBlack
-            )
+            val arc =
+                EntityV1.Arc(
+                    id = "a8",
+                    layer = "curves",
+                    center = origin,
+                    radius = 3.0,
+                    startAngle = 45.0,
+                    endAngle = 180.0,
+                    style = solidBlack,
+                )
             arc.layer shouldBe "curves"
         }
 
         test("full-circle arc (0 to 360) is valid") {
-            val arc = EntityV1.Arc(
-                id = "a9", center = origin, radius = 1.0,
-                startAngle = 0.0, endAngle = 360.0, style = solidBlack
-            )
+            val arc =
+                EntityV1.Arc(
+                    id = "a9",
+                    center = origin,
+                    radius = 1.0,
+                    startAngle = 0.0,
+                    endAngle = 360.0,
+                    style = solidBlack,
+                )
             arc.endAngle shouldBe 360.0
         }
 
         test("serialization round-trip preserves all fields") {
-            val arc = EntityV1.Arc(
-                id = "a10", layer = "plans", center = p1, radius = 12.5,
-                startAngle = 30.0, endAngle = 270.0, style = dashedRed
-            )
+            val arc =
+                EntityV1.Arc(
+                    id = "a10",
+                    layer = "plans",
+                    center = p1,
+                    radius = 12.5,
+                    startAngle = 30.0,
+                    endAngle = 270.0,
+                    style = dashedRed,
+                )
             val encoded = Json.encodeToString<EntityV1>(arc)
             val decoded = Json.decodeFromString<EntityV1>(encoded)
             decoded shouldBe arc
         }
 
         test("JSON discriminator is 'arc'") {
-            val encoded = Json.encodeToString<EntityV1>(
-                EntityV1.Arc(id = "a11", center = origin, radius = 1.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack)
-            )
+            val encoded =
+                Json.encodeToString<EntityV1>(
+                    EntityV1.Arc(id = "a11", center = origin, radius = 1.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack),
+                )
             encoded shouldContain "\"type\":\"arc\""
         }
     }
@@ -362,12 +414,13 @@ class EntityTest : FunSpec({
     context("Polymorphic deserialization") {
 
         test("list of mixed entity types round-trips correctly") {
-            val entities: List<EntityV1> = listOf(
-                EntityV1.Line(id = "l1", start = origin, end = p1, style = solidBlack),
-                EntityV1.Circle(id = "c1", center = p2, radius = 5.0, style = solidBlack),
-                EntityV1.Polyline(id = "pl1", points = listOf(origin, p1, p2), style = dashedRed),
-                EntityV1.Arc(id = "a1", center = origin, radius = 3.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack)
-            )
+            val entities: List<EntityV1> =
+                listOf(
+                    EntityV1.Line(id = "l1", start = origin, end = p1, style = solidBlack),
+                    EntityV1.Circle(id = "c1", center = p2, radius = 5.0, style = solidBlack),
+                    EntityV1.Polyline(id = "pl1", points = listOf(origin, p1, p2), style = dashedRed),
+                    EntityV1.Arc(id = "a1", center = origin, radius = 3.0, startAngle = 0.0, endAngle = 90.0, style = solidBlack),
+                )
             val encoded = Json.encodeToString(entities)
             val decoded = Json.decodeFromString<List<EntityV1>>(encoded)
             decoded shouldBe entities

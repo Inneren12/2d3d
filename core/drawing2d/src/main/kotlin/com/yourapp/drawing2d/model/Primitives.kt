@@ -13,7 +13,6 @@ import kotlin.math.sqrt
  */
 @Serializable
 data class Point2D(val x: Double, val y: Double) {
-
     operator fun plus(other: Point2D): Point2D = Point2D(x + other.x, y + other.y)
 
     operator fun minus(other: Point2D): Point2D = Point2D(x - other.x, y - other.y)
@@ -31,10 +30,11 @@ data class Point2D(val x: Double, val y: Double) {
      * Returns a copy of this point with coordinates rounded to 4 decimal places
      * using [MathUtils.round] for deterministic serialization (ARCH-MATH-001).
      */
-    fun toJsonSafe(): Point2D = Point2D(
-        x = MathUtils.round(x, 4),
-        y = MathUtils.round(y, 4)
-    )
+    fun toJsonSafe(): Point2D =
+        Point2D(
+            x = MathUtils.round(x, 4),
+            y = MathUtils.round(y, 4),
+        )
 }
 
 /**
@@ -44,7 +44,6 @@ data class Point2D(val x: Double, val y: Double) {
  */
 @Serializable
 data class Vector2D(val x: Double, val y: Double) {
-
     operator fun plus(other: Vector2D): Vector2D = Vector2D(x + other.x, y + other.y)
 
     operator fun minus(other: Vector2D): Vector2D = Vector2D(x - other.x, y - other.y)
@@ -58,8 +57,9 @@ data class Vector2D(val x: Double, val y: Double) {
      * Returns a copy of this vector with components rounded to 4 decimal places
      * using [MathUtils.round] for deterministic serialization (ARCH-MATH-001).
      */
-    fun toJsonSafe(): Vector2D = Vector2D(
-        x = MathUtils.round(x, 4),
-        y = MathUtils.round(y, 4)
-    )
+    fun toJsonSafe(): Vector2D =
+        Vector2D(
+            x = MathUtils.round(x, 4),
+            y = MathUtils.round(y, 4),
+        )
 }

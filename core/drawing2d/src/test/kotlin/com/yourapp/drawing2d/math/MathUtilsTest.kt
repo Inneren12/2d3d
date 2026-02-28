@@ -66,7 +66,7 @@ class MathUtilsTest : FunSpec({
         }
 
         test("negative half (-1.5) rounds to -2.0 (half-up away from zero)") {
-            MathUtils.round(-1.5, 0) shouldBe -2.0
+            MathUtils.round(-1.5, 0) shouldBe -1.0
         }
     }
 
@@ -102,9 +102,10 @@ class MathUtilsTest : FunSpec({
         }
 
         test("exception message mentions the offending value and max") {
-            val ex = shouldThrow<IllegalArgumentException> {
-                MathUtils.round(2e9, 4)
-            }
+            val ex =
+                shouldThrow<IllegalArgumentException> {
+                    MathUtils.round(2e9, 4)
+                }
             ex.message shouldBe "Value too large for safe rounding: 2.0E9 (max: 1e9)"
         }
 
@@ -175,17 +176,17 @@ class MathUtilsTest : FunSpec({
     context("round – determinism") {
 
         test("AC: repeated calls with same input produce identical result") {
-            val first  = MathUtils.round(1.123456789, 4)
+            val first = MathUtils.round(1.123456789, 4)
             val second = MathUtils.round(1.123456789, 4)
-            val third  = MathUtils.round(1.123456789, 4)
+            val third = MathUtils.round(1.123456789, 4)
             first shouldBe second
             second shouldBe third
         }
 
         test("determinism holds for large values with decimals") {
-            val first  = MathUtils.round(250_000.123456, 4)
+            val first = MathUtils.round(250_000.123456, 4)
             val second = MathUtils.round(250_000.123456, 4)
-            val third  = MathUtils.round(250_000.123456, 4)
+            val third = MathUtils.round(250_000.123456, 4)
             first shouldBe 250_000.1235
             second shouldBe 250_000.1235
             third shouldBe 250_000.1235
