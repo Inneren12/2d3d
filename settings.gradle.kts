@@ -27,3 +27,4 @@ rootProject.name = "2d3d"
 
 include(":core:drawing2d")
 include(":core:domain")
+include(":core:validation")
