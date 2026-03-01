@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "drawing-broken-ref",
+  "name": "Broken Reference",
+  "page": {"width": 1000.0, "height": 800.0, "units": "MM"},
+  "entities": [],
+  "annotations": [
+    {
+      "type": "dimension",
+      "id": "dim1",
+      "targetId": "entity-does-not-exist",
+      "value": 100.0,
+      "units": "MM",
+      "position": {"x": 0.0, "y": 0.0}
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 999,
+  "id": "drawing-bad-schema",
+  "name": "Bad Schema Version",
+  "page": {"width": 1000.0, "height": 800.0, "units": "MM"}
+}

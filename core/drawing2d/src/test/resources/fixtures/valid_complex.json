@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "id": "drawing-complex",
+  "name": "Complex Valid Drawing",
+  "page": {
+    "width": 2000.0,
+    "height": 1500.0,
+    "units": "MM"
+  },
+  "layers": [
+    {
+      "id": "layer1",
+      "name": "Structural",
+      "visible": true
+    }
+  ],
+  "entities": [
+    {
+      "type": "line",
+      "id": "line1",
+      "layer": "layer1",
+      "start": {"x": 0.0, "y": 0.0},
+      "end": {"x": 100.0, "y": 100.0},
+      "style": {"color": "#000000", "width": 1.0}
+    },
+    {
+      "type": "circle",
+      "id": "circle1",
+      "layer": "layer1",
+      "center": {"x": 50.0, "y": 50.0},
+      "radius": 25.0,
+      "style": {"color": "#FF0000", "width": 2.0}
+    },
+    {
+      "type": "polyline",
+      "id": "poly1",
+      "points": [
+        {"x": 0.0, "y": 0.0},
+        {"x": 50.0, "y": 50.0},
+        {"x": 100.0, "y": 0.0}
+      ],
+      "closed": false,
+      "style": {"color": "#0000FF", "width": 1.5}
+    },
+    {
+      "type": "arc",
+      "id": "arc1",
+      "center": {"x": 200.0, "y": 200.0},
+      "radius": 50.0,
+      "startAngle": 0.0,
+      "endAngle": 90.0,
+      "style": {"color": "#00FF00", "width": 1.0}
+    }
+  ],
+  "annotations": [
+    {
+      "type": "text",
+      "id": "text1",
+      "targetId": null,
+      "position": {"x": 10.0, "y": 10.0},
+      "content": "Test Annotation",
+      "fontSize": 12.0,
+      "rotation": 0.0
+    },
+    {
+      "type": "dimension",
+      "id": "dim1",
+      "targetId": "line1",
+      "value": 141.42,
+      "units": "MM",
+      "position": {"x": 50.0, "y": 50.0}
+    },
+    {
+      "type": "tag",
+      "id": "tag1",
+      "targetId": "circle1",
+      "label": "Wall",
+      "category": "structural"
+    },
+    {
+      "type": "group",
+      "id": "group1",
+      "targetId": null,
+      "name": "Main Group",
+      "memberIds": ["line1", "circle1"]
+    }
+  ],
+  "metadata": {
+    "author": "Test Suite",
+    "version": "1.0"
+  }
+}

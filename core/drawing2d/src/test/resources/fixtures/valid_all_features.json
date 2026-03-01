@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "drawing-features",
+  "name": "All Features Drawing",
+  "page": {
+    "width": 297.0,
+    "height": 210.0,
+    "units": "MM"
+  },
+  "layers": [
+    {"id": "l1", "name": "Layer 1", "visible": true},
+    {"id": "l2", "name": "Layer 2", "visible": false}
+  ],
+  "entities": [
+    {
+      "type": "line",
+      "id": "e1",
+      "layer": "l1",
+      "start": {"x": 10.0, "y": 10.0},
+      "end": {"x": 50.0, "y": 50.0},
+      "style": {"color": "#000000", "width": 1.0}
+    },
+    {
+      "type": "circle",
+      "id": "e2",
+      "layer": "l2",
+      "center": {"x": 100.0, "y": 100.0},
+      "radius": 30.0,
+      "style": {"color": "#FF0000", "width": 2.0, "dashPattern": [5.0, 3.0]}
+    }
+  ],
+  "annotations": [
+    {
+      "type": "tag",
+      "id": "a1",
+      "targetId": "e1",
+      "label": "Primary",
+      "category": "structural"
+    }
+  ],
+  "metadata": {"key": "value", "author": "Test Suite"},
+  "syncId": "sync-123",
+  "syncStatus": "SYNCED",
+  "updatedAt": 1234567890,
+  "version": 5
+}

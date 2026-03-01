@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "drawing-invalid-radius",
+  "name": "Invalid Negative Radius",
+  "page": {"width": 1000.0, "height": 800.0, "units": "MM"},
+  "entities": [
+    {
+      "type": "circle",
+      "id": "bad-circle",
+      "center": {"x": 50.0, "y": 50.0},
+      "radius": -5.0,
+      "style": {"color": "#000000", "width": 1.0}
+    }
+  ]
+}
