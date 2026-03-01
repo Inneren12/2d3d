@@ -6,6 +6,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":core:drawing2d"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     testImplementation("io.kotest:kotest-runner-junit5:5.8.1")

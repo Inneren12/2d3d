@@ -11,11 +11,15 @@
 | `Violation.BrokenReference` | `core/validation/src/main/kotlin/com/yourapp/validation/Violation.kt` |
 | `Violation.Custom` | `core/validation/src/main/kotlin/com/yourapp/validation/Violation.kt` |
 
+| `DrawingValidator` | `core/validation/src/main/kotlin/com/yourapp/validation/DrawingValidator.kt` |
+| `ValidationException` | `core/validation/src/main/kotlin/com/yourapp/validation/DrawingValidator.kt` |
+
 ## core/validation — test sources
 
 | Test Class | Location |
 |------------|----------|
 | `ViolationTest` | `core/validation/src/test/kotlin/com/yourapp/validation/ViolationTest.kt` |
+| `DrawingValidatorTest` | `core/validation/src/test/kotlin/com/yourapp/validation/DrawingValidatorTest.kt` |
 
 ## Build
 
