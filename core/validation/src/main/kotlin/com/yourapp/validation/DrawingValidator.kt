@@ -5,6 +5,7 @@ import com.yourapp.drawing2d.model.Drawing2D
 import com.yourapp.drawing2d.model.EntityV1
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
+import kotlin.math.sqrt
 
 /**
  * Validates Drawing2D structure and returns structured violations.
@@ -16,6 +17,7 @@ class DrawingValidator {
     companion object {
         const val MAX_ENTITIES = 100_000
         const val MAX_ANNOTATIONS = 100_000
+        const val MIN_LINE_LENGTH = 1e-6
     }
 
     private val json = Json { ignoreUnknownKeys = true }
@@ -64,6 +66,7 @@ class DrawingValidator {
         // Validate each entity
         drawing.entities.forEachIndexed { index, entity ->
             violations.addAll(validateEntity(entity, index))
+            violations.addAll(validateGeometry(entity, index))
         }
 
         // Validate each annotation
@@ -99,6 +102,176 @@ class DrawingValidator {
                     constraint = "must not be blank",
                 ),
             )
+        }
+
+        return violations
+    }
+
+    /**
+     * Validates geometric properties of an entity.
+     *
+     * Checks for:
+     * - Non-finite coordinates (NaN, Infinity)
+     * - Non-finite radius values
+     * - Non-finite angles
+     * - Degenerate geometry (zero-length lines)
+     */
+    private fun validateGeometry(
+        entity: EntityV1,
+        index: Int,
+    ): List<Violation> {
+        val violations = mutableListOf<Violation>()
+        val path = "drawing.entities[$index]"
+
+        when (entity) {
+            is EntityV1.Line -> {
+                if (!entity.start.x.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.start.x",
+                            fieldName = "x",
+                            value = entity.start.x.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.start.y.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.start.y",
+                            fieldName = "y",
+                            value = entity.start.y.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.end.x.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.end.x",
+                            fieldName = "x",
+                            value = entity.end.x.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.end.y.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.end.y",
+                            fieldName = "y",
+                            value = entity.end.y.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+
+                // Check for degenerate line (zero length)
+                val dx = entity.end.x - entity.start.x
+                val dy = entity.end.y - entity.start.y
+                val length = sqrt(dx * dx + dy * dy)
+
+                if (length < MIN_LINE_LENGTH) {
+                    violations.add(
+                        Violation.Custom(
+                            path = "$path.length",
+                            severity = Severity.WARNING,
+                            message = "Line has zero length (length=$length, min=$MIN_LINE_LENGTH)",
+                        ),
+                    )
+                }
+            }
+
+            is EntityV1.Circle -> {
+                if (!entity.center.x.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.center.x",
+                            fieldName = "x",
+                            value = entity.center.x.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.center.y.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.center.y",
+                            fieldName = "y",
+                            value = entity.center.y.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+            }
+
+            is EntityV1.Polyline -> {
+                entity.points.forEachIndexed { pointIndex, point ->
+                    if (!point.x.isFinite()) {
+                        violations.add(
+                            Violation.InvalidValue(
+                                path = "$path.points[$pointIndex].x",
+                                fieldName = "x",
+                                value = point.x.toString(),
+                                constraint = "must be finite",
+                            ),
+                        )
+                    }
+                    if (!point.y.isFinite()) {
+                        violations.add(
+                            Violation.InvalidValue(
+                                path = "$path.points[$pointIndex].y",
+                                fieldName = "y",
+                                value = point.y.toString(),
+                                constraint = "must be finite",
+                            ),
+                        )
+                    }
+                }
+            }
+
+            is EntityV1.Arc -> {
+                if (!entity.center.x.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.center.x",
+                            fieldName = "x",
+                            value = entity.center.x.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.center.y.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.center.y",
+                            fieldName = "y",
+                            value = entity.center.y.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.startAngle.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.startAngle",
+                            fieldName = "startAngle",
+                            value = entity.startAngle.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+                if (!entity.endAngle.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.endAngle",
+                            fieldName = "endAngle",
+                            value = entity.endAngle.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+            }
         }
 
         return violations
