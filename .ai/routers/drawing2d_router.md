@@ -42,6 +42,8 @@
 | `AnnotationTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/AnnotationTest.kt` |
 | `Drawing2DTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/model/Drawing2DTest.kt` |
 | `PatchOpV1Test` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/events/PatchOpV1Test.kt` |
+| `GoldenFixtureTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/GoldenFixtureTest.kt` |
+| `PropertyBasedTest` | `core/drawing2d/src/test/kotlin/com/yourapp/drawing2d/PropertyBasedTest.kt` |
 
 ## Build
 

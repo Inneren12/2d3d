@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "id": "drawing-empty",
+  "name": "Empty Valid Drawing",
+  "page": {"width": 1000.0, "height": 800.0, "units": "MM"}
+}
