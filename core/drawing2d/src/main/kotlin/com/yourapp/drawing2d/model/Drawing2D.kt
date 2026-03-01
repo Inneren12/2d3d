@@ -54,7 +54,6 @@ data class Drawing2D(
     val entities: List<EntityV1> = emptyList(),
     val annotations: List<AnnotationV1> = emptyList(),
     val metadata: Map<String, String> = emptyMap(),
-
     // Sync fields (for cloud synchronization in Sprint 4.5)
     val syncId: String? = null,
     val syncStatus: SyncStatus = SyncStatus.LOCAL,

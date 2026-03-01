@@ -223,8 +223,8 @@ class PrimitivesTest : FunSpec({
 
             val json = Json.encodeToString(point)
 
-            json shouldContain "1.1235"
-            json shouldContain "2.9877"
+            json shouldContain "10.1235"
+            json shouldContain "20.9877"
             json shouldNotContain "123456789"
         }
 
