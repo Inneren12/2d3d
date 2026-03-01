@@ -59,6 +59,69 @@ Violation objects.
 - If not null, must reference existing entity
 - Returns `Violation.BrokenReference` if not found
 
+## Geometry Validation
+
+Validates geometric properties of entities to catch NaN and Infinity
+before they poison downstream calculations.
+
+### Coordinate Checks
+
+**All entity types:**
+- All x, y coordinates must be finite (not NaN, Infinity, -Infinity)
+- Returns `InvalidValue` violation for non-finite coordinates
+
+**Circle:**
+- `center.x` and `center.y` must be finite
+- `radius` must be finite (already checked in entity validation)
+
+**Arc:**
+- `center.x` and `center.y` must be finite
+- `startAngle` must be finite
+- `endAngle` must be finite
+- `radius` must be finite (already checked in entity validation)
+
+**Polyline:**
+- All `points[i].x` and `points[i].y` must be finite
+
+### Degenerate Geometry Detection
+
+**Line:**
+- If length < 1e-6 (1 micrometer), returns WARNING violation
+- Message: "Line has zero length (length=X, min=1e-6)"
+- Severity: WARNING (not ERROR, as it may be intentional)
+
+**Why check for NaN/Infinity?**
+
+Non-finite values cause silent failures in downstream code:
+- Bounding box calculations return NaN/Infinity
+- Collision detection fails
+- Rendering produces blank output
+- Distance calculations propagate NaN
+
+Catching these early prevents debugging nightmares.
+
+### Example: Geometry Validation
+
+```kotlin
+val drawing = Drawing2D(
+    id = "d1",
+    name = "Test",
+    page = Page(width = 1000.0, height = 800.0),
+    entities = listOf(
+        EntityV1.Line(
+            id = "line1",
+            layer = null,
+            start = Point2D(0.0, 0.0),
+            end = Point2D(Double.NaN, 100.0),
+            style = LineStyle("#000", 1.0, null),
+        )
+    )
+)
+
+val violations = validator.validate(drawing)
+// Returns: InvalidValue(path="drawing.entities[0].end.x", constraint="must be finite")
+```
+
 ## Methods
 
 ### validate(drawing: Drawing2D): List\<Violation\>

@@ -20,6 +20,7 @@
 |------------|----------|
 | `ViolationTest` | `core/validation/src/test/kotlin/com/yourapp/validation/ViolationTest.kt` |
 | `DrawingValidatorTest` | `core/validation/src/test/kotlin/com/yourapp/validation/DrawingValidatorTest.kt` |
+| `GeometryValidationTest` | `core/validation/src/test/kotlin/com/yourapp/validation/GeometryValidationTest.kt` |
 
 ## Build
 
