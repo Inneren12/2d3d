@@ -69,9 +69,14 @@ class DrawingValidator {
             violations.addAll(validateGeometry(entity, index))
         }
 
+        // Build entity ID set once (O(N) instead of O(N*M))
+        val entityIds = drawing.entities.asSequence()
+            .map { it.id }
+            .toHashSet()
+
         // Validate each annotation
         drawing.annotations.forEachIndexed { index, annotation ->
-            violations.addAll(validateAnnotation(annotation, index, drawing))
+            violations.addAll(validateAnnotation(annotation, index, entityIds))
         }
 
         return violations
@@ -80,10 +85,10 @@ class DrawingValidator {
     /**
      * Validates a single entity.
      *
-     * Note: Geometric constraints (Circle/Arc radius > 0 and finite, Polyline >= 2 points)
-     * are enforced by the model's own `init` blocks, so those invariants are guaranteed
-     * on any successfully-constructed entity. Invalid JSON inputs that would violate these
-     * constraints are caught by [validateSafe]'s serialization exception handling.
+     * Performs both ID validation and type-specific value validation.
+     * Note: Init blocks enforce most geometric constraints, so these checks are
+     * defensive — they fire if an entity somehow bypasses the constructor (e.g.
+     * deserialization with lenient config or future refactoring).
      */
     private fun validateEntity(
         entity: EntityV1,
@@ -102,6 +107,79 @@ class DrawingValidator {
                     constraint = "must not be blank",
                 ),
             )
+        }
+
+        // Type-specific validation
+        when (entity) {
+            is EntityV1.Circle -> {
+                // Radius must be positive
+                if (entity.radius <= 0) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.radius",
+                            fieldName = "radius",
+                            value = entity.radius.toString(),
+                            constraint = "must be positive",
+                        ),
+                    )
+                }
+
+                // Radius must be finite
+                if (!entity.radius.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.radius",
+                            fieldName = "radius",
+                            value = entity.radius.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+            }
+
+            is EntityV1.Polyline -> {
+                // Must have at least 2 points
+                if (entity.points.size < 2) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.points",
+                            fieldName = "points",
+                            value = "size=${entity.points.size}",
+                            constraint = "minimum 2 points required",
+                        ),
+                    )
+                }
+            }
+
+            is EntityV1.Arc -> {
+                // Radius must be positive
+                if (entity.radius <= 0) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.radius",
+                            fieldName = "radius",
+                            value = entity.radius.toString(),
+                            constraint = "must be positive",
+                        ),
+                    )
+                }
+
+                // Radius must be finite
+                if (!entity.radius.isFinite()) {
+                    violations.add(
+                        Violation.InvalidValue(
+                            path = "$path.radius",
+                            fieldName = "radius",
+                            value = entity.radius.toString(),
+                            constraint = "must be finite",
+                        ),
+                    )
+                }
+            }
+
+            else -> {
+                // Line: no additional validation needed
+            }
         }
 
         return violations
@@ -283,7 +361,7 @@ class DrawingValidator {
     private fun validateAnnotation(
         annotation: AnnotationV1,
         index: Int,
-        drawing: Drawing2D,
+        entityIds: Set<String>,
     ): List<Violation> {
         val violations = mutableListOf<Violation>()
         val path = "drawing.annotations[$index]"
@@ -303,8 +381,7 @@ class DrawingValidator {
         // Check targetId reference exists (if not null)
         val targetId = annotation.targetId
         if (targetId != null) {
-            val entityExists = drawing.entities.any { it.id == targetId }
-            if (!entityExists) {
+            if (targetId !in entityIds) {
                 violations.add(
                     Violation.BrokenReference(
                         path = "$path.targetId",
@@ -364,8 +441,23 @@ class DrawingValidator {
                         ),
                 ),
             )
+        } catch (e: IllegalArgumentException) {
+            // Init block validation failure (e.g., negative radius)
+            Result.failure(
+                ValidationException(
+                    message = "Invalid entity data: ${e.message}",
+                    violations =
+                        listOf(
+                            Violation.Custom(
+                                path = "entity",
+                                severity = Severity.ERROR,
+                                message = "Entity validation failed during construction: ${e.message}",
+                            ),
+                        ),
+                ),
+            )
         } catch (e: Exception) {
-            // Unexpected error (e.g. IllegalArgumentException from model init blocks)
+            // Unexpected error
             Result.failure(
                 ValidationException(
                     message = "Validation error: ${e.message}",

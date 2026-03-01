@@ -10,6 +10,7 @@ import com.yourapp.drawing2d.model.Units
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.longs.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -412,6 +413,47 @@ class DrawingValidatorTest : FunSpec({
             violations[0].shouldBeInstanceOf<Violation.InvalidValue>()
             violations[0].path shouldBe "drawing.annotations[0]"
             (violations[0] as Violation.InvalidValue).fieldName shouldBe "id"
+        }
+    }
+
+    context("Performance") {
+        test("Validates 100k entities + 100k annotations in <5 seconds") {
+            val entities = (1..100_001).map {
+                EntityV1.Line(
+                    id = "e$it",
+                    layer = null,
+                    start = Point2D(0.0, 0.0),
+                    end = Point2D(1.0, 1.0),
+                    style = LineStyle("#000", 1.0, null),
+                )
+            }
+
+            val annotations = (1..100_001).map {
+                AnnotationV1.Tag(
+                    id = "a$it",
+                    targetId = "e${(it % 100_001) + 1}", // Reference valid entities
+                    label = "Tag",
+                    category = null,
+                )
+            }
+
+            val drawing = Drawing2D(
+                id = "large",
+                name = "Large Drawing",
+                page = Page(width = 1000.0, height = 800.0),
+                entities = entities,
+                annotations = annotations,
+            )
+
+            val startTime = System.currentTimeMillis()
+            val violations = validator.validate(drawing)
+            val duration = System.currentTimeMillis() - startTime
+
+            // Should complete in reasonable time
+            duration shouldBeLessThan 5000L // 5 seconds
+
+            // Should have violations for exceeding limits
+            violations.any { it.message.contains("Too many") } shouldBe true
         }
     }
 
