@@ -102,8 +102,10 @@ class Drawing2DTest : FunSpec({
         test("Page constructed with dimensions") {
             val page =
                 Page(
-                    width = 297.0, // A4 width in mm
-                    height = 210.0, // A4 height in mm
+                    // A4 width in mm
+                    width = 297.0,
+                    // A4 height in mm
+                    height = 210.0,
                     units = Units.MM,
                 )
 
@@ -276,7 +278,8 @@ class Drawing2DTest : FunSpec({
                     id = "d1",
                     name = "Test",
                     page = page,
-                    layers = listOf(layer2, layer1), // Reversed
+                    // Reversed
+                    layers = listOf(layer2, layer1),
                 )
 
             val hash1 = drawing1.toJsonStable().sha256()

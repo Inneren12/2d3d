@@ -25,10 +25,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "2d3d"
 
-include(":app")
 include(":core:drawing2d")
 include(":core:domain")
-include(":core:storage")
-include(":feature:camera")
-include(":feature:editor")
-include(":feature:ar")

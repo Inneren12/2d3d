@@ -5,6 +5,7 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.comparables.shouldBeLessThan
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -176,11 +177,12 @@ class PatchOpV1Test : FunSpec({
 
     context("Serialization") {
         // Explicit Json config for test determinism
-        val testJson = Json {
-            prettyPrint = false
-            ignoreUnknownKeys = false
-            encodeDefaults = true
-        }
+        val testJson =
+            Json {
+                prettyPrint = false
+                ignoreUnknownKeys = false
+                encodeDefaults = true
+            }
 
         test("AC: All operations serialize/deserialize correctly") {
             val ops =
@@ -201,11 +203,13 @@ class PatchOpV1Test : FunSpec({
             deserialized shouldBe ops
         }
 
+        @OptIn(ExperimentalSerializationApi::class)
         test("@SerialName ensures stable discriminators") {
-            val prettyJson = Json {
-                prettyPrint = true
-                prettyPrintIndent = "  "
-            }
+            val prettyJson =
+                Json {
+                    prettyPrint = true
+                    prettyPrintIndent = "  "
+                }
 
             val op = PatchOpV1.AddNode("n1", Point2D(10.0, 20.0))
             val json = prettyJson.encodeToString(PatchOpV1.serializer(), op)
