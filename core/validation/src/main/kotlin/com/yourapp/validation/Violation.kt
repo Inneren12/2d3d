@@ -1,5 +1,6 @@
 package com.yourapp.validation
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
@@ -39,6 +40,7 @@ sealed class Violation {
      * Example: Drawing has no `id` field.
      */
     @Serializable
+    @SerialName("missing_field")
     data class MissingField(
         override val path: String,
         val fieldName: String,
@@ -53,6 +55,7 @@ sealed class Violation {
      * Example: Circle radius is negative.
      */
     @Serializable
+    @SerialName("invalid_value")
     data class InvalidValue(
         override val path: String,
         val fieldName: String,
@@ -69,6 +72,7 @@ sealed class Violation {
      * Example: Annotation references non-existent entity ID.
      */
     @Serializable
+    @SerialName("broken_reference")
     data class BrokenReference(
         override val path: String,
         val referenceId: String,
@@ -84,6 +88,7 @@ sealed class Violation {
      * Use for domain-specific validation rules.
      */
     @Serializable
+    @SerialName("custom")
     data class Custom(
         override val path: String,
         override val severity: Severity,

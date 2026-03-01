@@ -3,6 +3,9 @@ package com.yourapp.validation
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.string.shouldNotContain
+import io.kotest.matchers.types.shouldBeInstanceOf
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -216,6 +219,72 @@ class ViolationTest : FunSpec({
             val deserialized = json.decodeFromString<List<Violation>>(jsonString)
 
             deserialized shouldBe violations
+        }
+    }
+
+    context("Polymorphic deserialization") {
+        test("Single violation can be deserialized through base type") {
+            val original: Violation =
+                Violation.MissingField(
+                    path = "test",
+                    fieldName = "id",
+                )
+
+            // Encode as base type
+            val jsonString = json.encodeToString<Violation>(original)
+
+            // Decode as base type
+            val deserialized = json.decodeFromString<Violation>(jsonString)
+
+            deserialized shouldBe original
+            deserialized.shouldBeInstanceOf<Violation.MissingField>()
+        }
+
+        test("Each violation type deserializes correctly through base type") {
+            val violations =
+                listOf<Violation>(
+                    Violation.MissingField("path1", "field1"),
+                    Violation.InvalidValue("path2", "field2", "bad", "constraint"),
+                    Violation.BrokenReference("path3", "ref1", "Entity"),
+                    Violation.Custom("path4", Severity.WARNING, "message"),
+                )
+
+            violations.forEach { original ->
+                val jsonString = json.encodeToString<Violation>(original)
+                val deserialized = json.decodeFromString<Violation>(jsonString)
+
+                deserialized shouldBe original
+            }
+        }
+
+        test("@SerialName ensures clean JSON discriminators") {
+            val violation =
+                Violation.MissingField(
+                    path = "drawing",
+                    fieldName = "id",
+                )
+
+            val jsonString = json.encodeToString<Violation>(violation)
+
+            // Should use clean discriminator, not FQCN
+            jsonString shouldContain "\"type\":\"missing_field\""
+            jsonString shouldNotContain "com.yourapp"
+            jsonString shouldNotContain "Violation.MissingField"
+        }
+
+        test("All violation types have clean discriminators") {
+            val expectations =
+                mapOf(
+                    Violation.MissingField("p", "f") to "missing_field",
+                    Violation.InvalidValue("p", "f", "v", "c") to "invalid_value",
+                    Violation.BrokenReference("p", "r", "t") to "broken_reference",
+                    Violation.Custom("p", Severity.ERROR, "m") to "custom",
+                )
+
+            expectations.forEach { (violation, expectedType) ->
+                val jsonString = json.encodeToString<Violation>(violation)
+                jsonString shouldContain "\"type\":\"$expectedType\""
+            }
         }
     }
 })

@@ -108,7 +108,26 @@ fun validateCircle(circle: EntityV1.Circle): List<Violation> {
 
 ## Serialization
 
-All violations are serializable to JSON:
+All violations are serializable to JSON with clean discriminators:
+
+```json
+{
+  "type": "missing_field",
+  "path": "drawing",
+  "fieldName": "id"
+}
+```
+
+**Discriminator values** (via `@SerialName`):
+- `missing_field` → MissingField
+- `invalid_value` → InvalidValue
+- `broken_reference` → BrokenReference
+- `custom` → Custom
+
+This ensures:
+- Clean external API (no FQCN like `com.yourapp.validation.Violation.MissingField`)
+- Stable JSON format across refactoring
+- Language-agnostic discriminators
 
 ```kotlin
 val violations = listOf(
@@ -118,10 +137,36 @@ val violations = listOf(
 
 val json = Json.encodeToString(violations)
 // [
-//   {"type":"MissingField","path":"drawing","fieldName":"id"},
-//   {"type":"InvalidValue","path":"circle","fieldName":"radius","value":"-5","constraint":"must be positive"}
+//   {"type":"missing_field","path":"drawing","fieldName":"id"},
+//   {"type":"invalid_value","path":"circle","fieldName":"radius","value":"-5","constraint":"must be positive"}
 // ]
 ```
+
+## JSON Stability
+
+Using `@SerialName` protects against breaking changes:
+
+**Without @SerialName (BAD):**
+```json
+{
+  "type": "com.yourapp.validation.Violation.MissingField",
+  ...
+}
+```
+- Breaks when package renamed
+- Ugly for external APIs
+- Tightly coupled to Kotlin implementation
+
+**With @SerialName (GOOD):**
+```json
+{
+  "type": "missing_field",
+  ...
+}
+```
+- Stable across refactoring
+- Clean external API
+- Language-agnostic
 
 ## Architecture Compliance
 
